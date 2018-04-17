@@ -8,7 +8,6 @@
           src="https://code.jquery.com/jquery-3.2.1.min.js"
           integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
           crossorigin="anonymous"></script> 
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKcJyUA9Her5wtrReDH_kQq6z0udnLwm4&libraries=places"></script>
     <link href="index.css" rel="stylesheet" type="text/css" />
     <script src ="index.js"></script>
 </head>
@@ -21,12 +20,12 @@
     <form action ='#' class ='js-search-form'>
             <label for= 'query'></label>
             <input type ='text' aria-label ='Address input' class = 'js-query' placeholder="ex. 1315 10th St B-27, Sacramento, CA 95814">
-            <button type ='submit'> Search</button>
+            <button id ='js-search-button' type ='submit'> Search</button>
         </form>
     
-        <button id = 'buttonCoffee' type = "button"> Coffee icon </button> 
-        <button id = 'buttonSandwich' type = "button"> Sandwich icon </button>
-        <button id = 'buttonSushi' type = "button"> Sushi icon </button>
+        <button id = 'buttonCoffee' type = "button" hidden> Coffee icon </button> 
+        <button id = 'buttonSandwich' type = "button" hidden> Sandwich icon </button>
+        <button id = 'buttonSushi' type = "button" hidden> Sushi icon </button>
 
     
     <div id = 'js-search-results'>this is js-search-results</div>
