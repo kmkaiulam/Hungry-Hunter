@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Capstone One:Hungry Hunter</title>
+    <script
+          src="https://code.jquery.com/jquery-3.2.1.min.js"
+          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin="anonymous"></script> 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKcJyUA9Her5wtrReDH_kQq6z0udnLwm4&libraries=places"></script>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+    <script src ="index.js"></script>
+</head>
+<body>
+    <nav role = "navigation">
+    </nav>
+   <main role = "main">
+    <h1> Hungry Hunter</h1>
+    <h2> Search nearby for coffee, sushi and sandwiches</h2>
+    <form action ='#' class ='js-search-form'>
+            <label for= 'query'></label>
+            <input type ='text' aria-label ='Address input' class = 'js-query' placeholder="ex. 1315 10th St B-27, Sacramento, CA 95814">
+            <button type ='submit'> Search</button>
+        </form>
+    
+        <button id = 'buttonCoffee' type = "button"> Coffee icon </button> 
+        <button id = 'buttonSandwich' type = "button"> Sandwich icon </button>
+        <button id = 'buttonSushi' type = "button"> Sushi icon </button>
+
+    
+    <div id = 'js-search-results'>this is js-search-results</div>
+    <div id = 'js-search-map'> this is js-search-map</div>
+    </main>
+</body>
+
+
+
+
+
+
+
+</html>
