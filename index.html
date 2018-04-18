@@ -9,6 +9,7 @@
           integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
           crossorigin="anonymous"></script> 
     <link href="index.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAKcJyUA9Her5wtrReDH_kQq6z0udnLwm4"></script>
     <script src ="index.js"></script>
 </head>
 <body>
@@ -19,7 +20,7 @@
     <h2> Search nearby for coffee, sushi and sandwiches</h2>
     <form action ='#' class ='js-search-form'>
             <label for= 'query'></label>
-            <input type ='text' aria-label ='Address input' class = 'js-query' placeholder="ex. 1315 10th St B-27, Sacramento, CA 95814">
+            <input type ='text' aria-label ='Address input' class = 'js-query' required placeholder="ex. 1315 10th St B-27, Sacramento, CA 95814">
             <button id ='js-search-button' type ='submit'> Search</button>
         </form>
     
