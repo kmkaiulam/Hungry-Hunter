@@ -1,11 +1,11 @@
-const PLACES_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
+const PLACES_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
 const GEOCODE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 
 //locationGeo is an object containing lat/lng
 let oldQuery = "";
-let searchLocationGeo = "";
+let searchLocationAddress = "";
 let locationGeo = "";
-let map = "";
+let locationTest = "";
 
 //variable 'locationGeo will be defined by userInput'
 
@@ -26,17 +26,19 @@ function displayMap(locationGeo){
 */
 
 
-function retrieveNearbyGooglePlacesData(locationGeo, callPlacesData){
+function retrieveAddressGooglePlacesData(locationTest, callPlacesData){
     const placesSearch = {
-    key: 'AIzaSyA0Fr_D8DfctwBvp2kLFSmkPlcibgKRpKE',
-    location: locationGeo,
+    query: `${locationTest}`,
+    key: 'AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc',
     radius: 6000, 
     type: 'coffee',
     opennow: true,
+    callback:""
     };
     $.getJSON(PLACES_SEARCH_URL, placesSearch, callPlacesData);
 }
 
+/*
 function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
     const addressSearch = {
         key: 'AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc',
@@ -47,9 +49,10 @@ function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
 
 function callGeoData(data){
     console.log(data);
-    locationGeo = data.results[0].geometry.location;
+    locationGeoLat = data.results[0].geometry.location;
+    console.log(locationGeo);
 }
-
+*/
 function callPlacesData(data){
     console.log(data);
 }
@@ -107,14 +110,15 @@ function listenAddressSubmit(){
         const userQueryLocation = userInput.val();
         userInput.val("");
     //Convert userInput into array and then into portion of web address
-        let nameLocation = userQueryLocation.split(' ');
+        locationTest = userQueryLocation;
+    let nameLocation = userQueryLocation.split(' ');
         let locationAddress = nameLocation[0];
     for (let i = 1; i < nameLocation.length; i++) {
     locationAddress = `${locationAddress}+${nameLocation[i]}`; 
 }
-    searchLocationGeo = locationAddress;
-    retrieveGoogleGeocodingData(searchLocationGeo, callGeoData);
-    retrieveNearbyGooglePlacesData(locationGeo, callPlacesData);
+    searchLocationAddress = locationAddress;
+//    retrieveGoogleGeocodingData(searchLocationGeo, callGeoData);
+    retrieveAddressGooglePlacesData(locationTest, callPlacesData);
 });
 }
    //if results are valid then show buttons 
