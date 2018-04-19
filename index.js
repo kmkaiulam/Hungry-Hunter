@@ -1,9 +1,12 @@
-const PLACES_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/textsearch/output';
+const PLACES_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
+const GEOCODE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
+
 //locationGeo is an object containing lat/lng
 let oldQuery = "";
+let searchLocationGeo = "";
 let locationGeo = "";
 let map = "";
-let geocoder = new google.maps.Geocoder();
+
 //variable 'locationGeo will be defined by userInput'
 
 //userInput will be converted to coordinates by the google Maps Geocoding API
@@ -21,52 +24,37 @@ function displayMap(locationGeo){
         });
     }
 */
-/*geocoder = new retrieveGoogleGeocodingData.maps.Geocoder();
-function getCoordinates(address) {
-    geocoder.geocode({'address': address}, function (results, status))
-}
-*/
-// plug in the locationGeo
-function retrieveNearbyGooglePlacesData(searchTerm, callback){
+
+
+function retrieveNearbyGooglePlacesData(locationGeo, callPlacesData){
     const placesSearch = {
     key: 'AIzaSyA0Fr_D8DfctwBvp2kLFSmkPlcibgKRpKE',
     location: locationGeo,
-    radius: 4500, 
+    radius: 6000, 
+    type: 'coffee',
     opennow: true,
     };
-    $.getJSON(PLACES_SEARCH_URL, placesSearch, callback);
+    $.getJSON(PLACES_SEARCH_URL, placesSearch, callPlacesData);
 }
 
-
-//Accept user input for address and converts to location coordinates using the geocoding API
-function listenAddressSubmit(){
-    $('.js-search-form').submit(event =>{
-        event.preventDefault();
-        const userInput =$(event.currentTarget).find('.js-query');
-        const userQueryLocation = userInput.val();
-        userInput.val("");
-//call function here that accepts parameter of userQueryLocation to convert 'userQueryLocation' into Coordinates, passing the conditional of being a valid address, continue onwards       
-        $('#buttonCoffee').prop('hidden',false);
-        $('#buttonSandwich').prop('hidden', false);
-        $('#buttonSushi').prop('hidden',false);
-console.log('This function accesses the ability to convert addresses to lat and longitude');
-});
+function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
+    const addressSearch = {
+        key: 'AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc',
+        address: `${searchLocationGeo}` 
+    };
+    $.getJSON(GEOCODE_SEARCH_URL, addressSearch , callGeoData);
 }
 
-function convertAddressToCoord(userQueryLocation){
-    console.log('This function converts addresses to lat and longitude for use in search');    
-    geocoder.geocode( { 'address': userQueryLocation}, function(results, status) {
-            if (status == 'OK') {
-                locationGeo = results[0].geometry.location;
-            }
-            else {
-                alert('Not a valid address. Please enter a valid input ex. 123 Street Address, City Name, State');
-            }
-        });
-    }
+function callGeoData(data){
+    console.log(data);
+    locationGeo = data.results[0].geometry.location;
+}
 
+function callPlacesData(data){
+    console.log(data);
+}
 
-
+/*
 function renderMap(){
     console.log("renderMaps");
 }
@@ -83,8 +71,7 @@ function renderCoffeeShops(){
 function renderSushi(){
     console.log('renderSushi ran');
 }
-
-
+*/
 // EVENT LISTENERS SECTION
 function listenCoffee(){
     $('#buttonCoffee').click(event =>{
@@ -107,24 +94,32 @@ function listenSushi(){
 }
 
 function listenClick(){
-    listenUserAddress();
+    listenAddressSubmit();
     listenCoffee();
     listenSandwich();
     listenSushi();
 }
 
-function listenSubmit(){
+function listenAddressSubmit(){
     $('.js-search-form').submit(event =>{
         event.preventDefault();
-        console.log("button clicked");
-        const queryTarget =$(event.currentTarget).find ('.js-query');
-        const query = queryTarget.val();
-        oldQuery = query;
-        queryTarget.val("");
-       // retrieveYoutubeData(query, displayYoutubeSearchData,"");
-
+        const userInput =$(event.currentTarget).find('.js-query');
+        const userQueryLocation = userInput.val();
+        userInput.val("");
+    //Convert userInput into array and then into portion of web address
+        let nameLocation = userQueryLocation.split(' ');
+        let locationAddress = nameLocation[0];
+    for (let i = 1; i < nameLocation.length; i++) {
+    locationAddress = `${locationAddress}+${nameLocation[i]}`; 
+}
+    searchLocationGeo = locationAddress;
+    retrieveGoogleGeocodingData(searchLocationGeo, callGeoData);
+    retrieveNearbyGooglePlacesData(locationGeo, callPlacesData);
 });
 }
+   //if results are valid then show buttons 
+//        $('#buttonCoffee').prop('hidden',false);
+//      $('#buttonSandwich').prop('hidden', false);
+//    $('#buttonSushi').prop('hidden',false);
 
 $(listenClick);
-$(listenAddressSubmit);
