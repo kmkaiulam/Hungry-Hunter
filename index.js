@@ -1,11 +1,12 @@
-const PLACES_SEARCH_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
 const GEOCODE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 
 //locationGeo is an object containing lat/lng
 let oldQuery = "";
 let searchLocationGeo = "";
-let locationGeo = "";
 let map = "";
+let locationGeo="";
+let service = "";
+let infoWindow = "";
 
 //variable 'locationGeo will be defined by userInput'
 
@@ -26,16 +27,7 @@ function displayMap(locationGeo){
 */
 
 
-function retrieveNearbyGooglePlacesData(locationGeo, callPlacesData){
-    const placesSearch = {
-    key: 'AIzaSyA0Fr_D8DfctwBvp2kLFSmkPlcibgKRpKE',
-    location: locationGeo,
-    radius: 6000, 
-    type: 'coffee',
-    opennow: true,
-    };
-    $.getJSON(PLACES_SEARCH_URL, placesSearch, callPlacesData);
-}
+
 
 function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
     const addressSearch = {
@@ -47,13 +39,54 @@ function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
 
 function callGeoData(data){
     console.log(data);
-    locationGeo = data.results[0].geometry.location;
+   locationGeo = data.results[0].geometry.location
+    let locationGeoLat = data.results[0].geometry.location.lat;
+    let locationGeoLng = data.results[0].geometry.location.lng;
+    generateMap(locationGeo, locationGeoLat, locationGeoLng);
 }
 
-function callPlacesData(data){
-    console.log(data);
+
+function generateMap(locationGeo, locationGeoLat, locationGeoLng)   
+    let userGeoLocation = new google.maps.LatLng(locationGeoLat, locationGeoLng);
+    map = new google.maps.Map(document.getElementById('#map'), {
+        center : locationGeo,
+        zoom: 17
+    }); 
+    infowindow = new google.maps.InfoWindow();
+    service = new google.maps.places.PlacesService(map);
+
+    let request = {
+        location: locationGeo,
+        radius: '1500',
+        type: ['restaurant']
+    };
+service.nearbySearch(request, callback);
+
+
+
+
+function callback(results, status) {
+    if(status == google.maps.places.PlacesServiceStatus.Ok) {
+        for (let i = 0; i < results.length; i++) {
+            let place = results[i];
+            createMarker(results[i]);
+        }
+    }
 }
 
+function createMarker(place) {
+    let placeLoc = place.geometry.location;
+    let marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+    
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(place.name);
+      infowindow.open(map, this);
+    });
+}
 /*
 function renderMap(){
     console.log("renderMaps");
@@ -114,7 +147,6 @@ function listenAddressSubmit(){
 }
     searchLocationGeo = locationAddress;
     retrieveGoogleGeocodingData(searchLocationGeo, callGeoData);
-    retrieveNearbyGooglePlacesData(locationGeo, callPlacesData);
 });
 }
    //if results are valid then show buttons 
