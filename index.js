@@ -4,8 +4,14 @@ const FOURSQUARE_SEARCH_URL = 'https://api.foursquare.com/v2/venues/search'
 let searchLocationGeo = "";
 let map = "";
 let locationGeo="";
+let locationGeoLat ="";
+let locationGeoLng = "";
 let service = "";
 let infoWindow = "";
+let fourSquareCoffeeQuery = "";
+let fourSquareSushiQuery = "";
+let fourSquareSandwichQuery= "";
+let fourSquareResults = "";
 
 
 function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
@@ -14,22 +20,21 @@ function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
         address: `${searchLocationGeo}` 
     };
     $.getJSON(GEOCODE_SEARCH_URL, addressSearch , callGeoData);
+    
 }
 
 function callGeoData(data){
     console.log(data);
    locationGeo = data.results[0].geometry.location
-    let locationGeoLat = data.results[0].geometry.location.lat;
-    let locationGeoLng = data.results[0].geometry.location.lng;
-    handleCoffeeClick(locationGeoLat, locationGeoLng);
-    handleSandwichClick(locationGeoLat, locationGeoLng);
-    handleSushiClick(locationGeoLat, locationGeoLng);
+     locationGeoLat = data.results[0].geometry.location.lat;
+     locationGeoLng = data.results[0].geometry.location.lng;
+     $('#js-search-results').empty();
 }
 
-function handleCoffeeClick(locationGeoLat, locationGeoLng){
+function handleCoffeeClick(){
     $('#buttonCoffee').click(event =>{
         event.preventDefault();
-    const fourSquareCoffeeQuery = {
+        fourSquareCoffeeQuery = {
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
@@ -41,10 +46,10 @@ $.getJSON(FOURSQUARE_SEARCH_URL,fourSquareCoffeeQuery, renderFourSquareData)
 });
 }
 
-function handleSandwichClick(locationGeoLat, locationGeoLng){
+function handleSandwichClick(){
     $('#buttonSandwich').click(event =>{
         event.preventDefault();
-    let fourSquareSandwichQuery = {
+        fourSquareSandwichQuery = {
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
@@ -56,10 +61,10 @@ $.getJSON(FOURSQUARE_SEARCH_URL,fourSquareSandwichQuery, renderFourSquareData)
 });
 }
 
-function handleSushiClick(locationGeoLat, locationGeoLng){
+function handleSushiClick(){
     $('#buttonSushi').click(event =>{
         event.preventDefault();
-    let fourSquareSushiQuery = {
+        fourSquareSushiQuery = {
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
@@ -86,21 +91,25 @@ function fourSquareSearch(locationGeoLat, locationGeoLng){
 }
 */
 function generateFourSquareResults(venueResults){
+    //call the 2nd ajax request here
     return `
         <div>
         <h2> ${venueResults.name}</h2>
             <div> Distance: ${venueResults.location.distance} meters away</div>   
-            <div> ${venueResults.location.formattedAddress} </div>`;
+            <div> ${venueResults.location.formattedAddress} </div>
+            <div id = ${venueResults.id}></div>`;
+            //.append into this section to generate appropriate tips, reviews etc.
 }
 
 function renderFourSquareData(data){
     console.log(data);
-    const fourSquareResults = data.response.venues.map((venuesResults) => generateFourSquareResults(venuesResults)); 
+    fourSquareResults = data.response.venues.map((venuesResults) => generateFourSquareResults(venuesResults)); 
     $('#js-search-results').html(fourSquareResults);
 }
+//going to need to map your 2nd ajax request to append properly
+//.append any additional results under here using your 2nd ajax request
 
-
-
+//callback function can use venueId to grab tips and to properly append
 
 // EVENT LISTENERS SECTION
 function listenClick(){
