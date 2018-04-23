@@ -1,32 +1,11 @@
 const GEOCODE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
-
+const FOURSQUARE_SEARCH_URL = 'https://api.foursquare.com/v2/venues/search'
 //locationGeo is an object containing lat/lng
-let oldQuery = "";
 let searchLocationGeo = "";
 let map = "";
 let locationGeo="";
 let service = "";
 let infoWindow = "";
-
-//variable 'locationGeo will be defined by userInput'
-
-//userInput will be converted to coordinates by the google Maps Geocoding API
-//upon user input buttons will appear for user to click on 
-// and then upon click of button --> the getJSON will run to indicate what data I want to map
-// display results in DOM 
-
-/*
-//display google map of area in the DOM based on user search
-function displayMap(locationGeo){
-    let mapFocus = new retrieveGoogleGeocodingData.maps.LatLng(`${locationGeo}`);
-        map = new retrieveGoogleGeocodingData.maps.Map(document.getElementById('#js-search-map'), {
-            mapFocus : mapFocus,
-            zoom: 13
-        });
-    }
-*/
-
-
 
 
 function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
@@ -42,69 +21,22 @@ function callGeoData(data){
    locationGeo = data.results[0].geometry.location
     let locationGeoLat = data.results[0].geometry.location.lat;
     let locationGeoLng = data.results[0].geometry.location.lng;
-    generateMap(locationGeo, locationGeoLat, locationGeoLng);
+    fourSquareSearch(locationGeoLat, locationGeoLng);
 }
 
-
-function generateMap(locationGeo, locationGeoLat, locationGeoLng)   
-    let userGeoLocation = new google.maps.LatLng(locationGeoLat, locationGeoLng);
-    map = new google.maps.Map(document.getElementById('#map'), {
-        center : locationGeo,
-        zoom: 17
-    }); 
-    infowindow = new google.maps.InfoWindow();
-    service = new google.maps.places.PlacesService(map);
-
-    let request = {
-        location: locationGeo,
-        radius: '1500',
-        type: ['restaurant']
-    };
-service.nearbySearch(request, callback);
-
-
-
-
-function callback(results, status) {
-    if(status == google.maps.places.PlacesServiceStatus.Ok) {
-        for (let i = 0; i < results.length; i++) {
-            let place = results[i];
-            createMarker(results[i]);
-        }
+function fourSquareSearch(locationGeoLat, locationGeoLng){
+    const fourSquareQuery = {
+        ll: `${locationGeoLat}, ${locationGeoLng}`,
+        client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+        client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+        v: '20180423'
     }
+    $.getJSON(FOURSQUARE_SEARCH_URL,fourSquareQuery, function(data){console.log(data)})
 }
 
-function createMarker(place) {
-    let placeLoc = place.geometry.location;
-    let marker = new google.maps.Marker({
-      map: map,
-      position: place.geometry.location
-    });
-    
 
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(place.name);
-      infowindow.open(map, this);
-    });
-}
-/*
-function renderMap(){
-    console.log("renderMaps");
-}
 
-//on click event listener to generate all sandwich shops in the area + reviews + hours and 'traffic': use font awesome icon
-function  renderSandwichShops(){
-    console.log('renderSandwichShops ran');
-}
-//on click event listener to generate all sandwich shops in the area + reviews + hours and 'traffic': use font awesome icon
-function renderCoffeeShops(){
-    console.log('renderCoffeeShops ran');
-}
-//on click event listener to generate all sandwich shops in the area + reviews + hours and 'traffic' : use font awesome icon
-function renderSushi(){
-    console.log('renderSushi ran');
-}
-*/
+
 // EVENT LISTENERS SECTION
 function listenCoffee(){
     $('#buttonCoffee').click(event =>{
@@ -155,3 +87,67 @@ function listenAddressSubmit(){
 //    $('#buttonSushi').prop('hidden',false);
 
 $(listenClick);
+/*
+..Set ASIDE FOR LATER - FIGURE OUT HOW TO DISPLAY MAP
+//Need to figure out how to display map in html --> probably $('#map').html(-----)
+function generateMap(locationGeo, locationGeoLat, locationGeoLng){   
+    let userGeoLocation = new google.maps.LatLng(locationGeoLat, locationGeoLng);
+    map = new google.maps.Map(document.getElementById('map'), { //probably doesn't work because this is an HTML function
+        center : locationGeo,
+        zoom: 17
+    }); 
+    infowindow = new google.maps.InfoWindow();
+    service = new google.maps.places.PlacesService(map);
+
+    let request = {
+        location: locationGeo,
+        radius: '1500',
+        type: ['restaurant']
+    };
+service.nearbySearch(request, callback);
+}
+
+
+
+
+function callback(results, status) {
+    if(status == google.maps.places.PlacesServiceStatus.Ok) {
+        for (let i = 0; i < results.length; i++) {
+            let place = results[i];
+            createMarker(results[i]);
+        }
+    }
+}
+
+function createMarker(place) {
+    let placeLoc = place.geometry.location;
+    let marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+    
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(place.name);
+      infowindow.open(map, this);
+    });
+}
+
+/*
+function renderMap(){
+    console.log("renderMaps");
+}
+
+//on click event listener to generate all sandwich shops in the area + reviews + hours and 'traffic': use font awesome icon
+function  renderSandwichShops(){
+    console.log('renderSandwichShops ran');
+}
+//on click event listener to generate all sandwich shops in the area + reviews + hours and 'traffic': use font awesome icon
+function renderCoffeeShops(){
+    console.log('renderCoffeeShops ran');
+}
+//on click event listener to generate all sandwich shops in the area + reviews + hours and 'traffic' : use font awesome icon
+function renderSushi(){
+    console.log('renderSushi ran');
+}
+*/
