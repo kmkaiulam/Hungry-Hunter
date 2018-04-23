@@ -29,11 +29,30 @@ function fourSquareSearch(locationGeoLat, locationGeoLng){
         ll: `${locationGeoLat}, ${locationGeoLng}`,
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
         client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
-        v: '20180423'
+        radius: 3218.69,
+        query: 'tacos',
+        v: '20180423',
     }
-    $.getJSON(FOURSQUARE_SEARCH_URL,fourSquareQuery, function(data){console.log(data)})
+    $.getJSON(FOURSQUARE_SEARCH_URL,fourSquareQuery, renderFourSquareData)
 }
 
+function generateFourSquareResults(venueResults){
+    return `
+        <div>
+        <h2> ${venueResults.name}</h2>
+            <div> Distance: ${venueResults.location.distance} meters away</div>   
+            <div> ${venueResults.location.formattedAddress} </div>`;
+}
+
+function renderFourSquareData(data){
+    console.log(data);
+    const fourSquareResults = data.response.venues.map((venuesResults) => generateFourSquareResults(venuesResults)); 
+    $('#js-search-results').html(fourSquareResults);
+}
+
+function displayFourSquareData(data){
+    return '  '
+}
 
 
 
