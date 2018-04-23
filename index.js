@@ -21,21 +21,70 @@ function callGeoData(data){
    locationGeo = data.results[0].geometry.location
     let locationGeoLat = data.results[0].geometry.location.lat;
     let locationGeoLng = data.results[0].geometry.location.lng;
-    fourSquareSearch(locationGeoLat, locationGeoLng);
+    handleCoffeeClick(locationGeoLat, locationGeoLng);
+    handleSandwichClick(locationGeoLat, locationGeoLng);
+    handleSushiClick(locationGeoLat, locationGeoLng);
 }
 
+function handleCoffeeClick(locationGeoLat, locationGeoLng){
+    $('#buttonCoffee').click(event =>{
+        event.preventDefault();
+    const fourSquareCoffeeQuery = {
+    ll: `${locationGeoLat}, ${locationGeoLng}`,
+    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+    client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+    radius: 3218.69,
+    query: 'coffee',
+    v: '20180423',
+}
+$.getJSON(FOURSQUARE_SEARCH_URL,fourSquareCoffeeQuery, renderFourSquareData)
+});
+}
+
+function handleSandwichClick(locationGeoLat, locationGeoLng){
+    $('#buttonSandwich').click(event =>{
+        event.preventDefault();
+    let fourSquareSandwichQuery = {
+    ll: `${locationGeoLat}, ${locationGeoLng}`,
+    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+    client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+    radius: 3218.69,
+    query: 'sandwich',
+    v: '20180423',
+}
+$.getJSON(FOURSQUARE_SEARCH_URL,fourSquareSandwichQuery, renderFourSquareData)
+});
+}
+
+function handleSushiClick(locationGeoLat, locationGeoLng){
+    $('#buttonSushi').click(event =>{
+        event.preventDefault();
+    let fourSquareSushiQuery = {
+    ll: `${locationGeoLat}, ${locationGeoLng}`,
+    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+    client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+    radius: 3218.69,
+    query: 'sushi',
+    v: '20180423',
+}
+$.getJSON(FOURSQUARE_SEARCH_URL,fourSquareSushiQuery, renderFourSquareData)
+});
+}
+
+
+/*
 function fourSquareSearch(locationGeoLat, locationGeoLng){
     const fourSquareQuery = {
         ll: `${locationGeoLat}, ${locationGeoLng}`,
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
         client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
         radius: 3218.69,
-        query: 'tacos',
+        query: 'cafe',
         v: '20180423',
     }
     $.getJSON(FOURSQUARE_SEARCH_URL,fourSquareQuery, renderFourSquareData)
 }
-
+*/
 function generateFourSquareResults(venueResults){
     return `
         <div>
@@ -50,38 +99,15 @@ function renderFourSquareData(data){
     $('#js-search-results').html(fourSquareResults);
 }
 
-function displayFourSquareData(data){
-    return '  '
-}
 
 
 
 // EVENT LISTENERS SECTION
-function listenCoffee(){
-    $('#buttonCoffee').click(event =>{
-        event.preventDefault();
-        console.log('listenCoffee ran');
-});
-}
-function listenSandwich(){
-    $('#buttonSandwich').click(event =>{
-        event.preventDefault();
-        console.log('listenSandwich works!');
-});
-}
-
-function listenSushi(){
-    $('#buttonSushi').click(event =>{
-        event.preventDefault();
-        console.log('listenSushi ran!');
-});
-}
-
 function listenClick(){
     listenAddressSubmit();
-    listenCoffee();
-    listenSandwich();
-    listenSushi();
+    handleCoffeeClick();
+    handleSandwichClick();
+    handleSushiClick();
 }
 
 function listenAddressSubmit(){
@@ -97,13 +123,14 @@ function listenAddressSubmit(){
     locationAddress = `${locationAddress}+${nameLocation[i]}`; 
 }
     searchLocationGeo = locationAddress;
+    $('#buttonCoffee').prop('hidden',false);
+    $('#buttonSandwich').prop('hidden', false);
+    $('#buttonSushi').prop('hidden',false);
     retrieveGoogleGeocodingData(searchLocationGeo, callGeoData);
 });
 }
    //if results are valid then show buttons 
-//        $('#buttonCoffee').prop('hidden',false);
-//      $('#buttonSandwich').prop('hidden', false);
-//    $('#buttonSushi').prop('hidden',false);
+    
 
 $(listenClick);
 /*
