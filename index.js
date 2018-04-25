@@ -40,7 +40,7 @@ function handleCoffeeClick(){
     query: 'coffee',
     v: '20180425',
 }
-$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareCoffeeQuery, renderFourSquareData)
+$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareCoffeeQuery, renderFourSquareSearchData)
 });
 }
 
@@ -55,7 +55,7 @@ function handleSandwichClick(){
     query: 'sandwich',
     v: '20180425',
 }
-$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSandwichQuery, renderFourSquareData)
+$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSandwichQuery, renderFourSquareSearchData)
 });
 }
 
@@ -70,11 +70,11 @@ function handleSushiClick(){
     query: 'sushi',
     v: '20180425',
 }
-$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareData)
+$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareSearchData)
 });
 }
 
-function generateFourSquareResults(venueResults, callFourSquareTipsData){
+function generateFourSquareSearchResults(venueResults, callFourSquareTipsData, callFourSquarePhotoData){
     venueUniqueId = venueResults.id;
     retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData);
     retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData);
@@ -84,14 +84,33 @@ function generateFourSquareResults(venueResults, callFourSquareTipsData){
         <h2> ${venueResults.name}</h2>
             <div> Distance: ${venueResults.location.distance} meters away</div>   
             <div> ${venueResults.location.formattedAddress} </div>
-            <div id = ${venueResults.id}></div>`;
+            <div id = ${venueUniqueId}></div>`;
             //.append into this section to generate appropriate tips, reviews etc.
 }
 
-function renderFourSquareData(data){
-    fourSquareResults = data.response.venues.map((venuesResults) => generateFourSquareResults(venuesResults)); 
-    $('#js-search-results').html(fourSquareResults);
+function renderFourSquareSearchData(data){
+    fourSquareSearchResults = data.response.venues.map((venuesResults) => generateFourSquareSearchResults(venuesResults)); 
+    $('#js-search-results').html(fourSquareSearchResults);
 }
+
+function generateFourSquareTipResults(tipResults){
+    return ` <div class = 'tip'> Tip: ${tipResults.text}</div>
+             <div id = ${venueUniqueId}></div>`
+}
+
+function generateFourSquarePhotoResults(photoResults){
+    return `<img class = 'venuePhoto' src = '${photoResults.prefix}/300x500/${photoResults.suffix}' alt = '${photoResults.source.name}'>`
+}
+
+function renderFourSquareTipsData(data){
+    fourSquareTips = data.response.tips.items.map((tipResults) => generateFourSquareTipResults(tipResults));
+    $(`#${venueUniqueId}`).html(fourSquareTips); //not sure if i need to use append here //How will i link venueUniqueID into this?
+}
+
+function renderFourSquarePhotosData(data){
+        fourSquarePhotos = data.response.photos.items.map((photoResults) => generateFourSquarePhotoResults(photoResults));
+        $(`#${venueUniqueId}`).append(fourSquarePhotos);
+    }
 
 function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
     const fourSquareTipsSearch = {
@@ -112,6 +131,7 @@ function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
     const fourSquarePhotoSearch = {
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
         client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+        limit: 1,
         v: '20180425',
     }
     $.getJSON(`${FOURSQUARE_URL}/${venueUniqueId}/tips`, fourSquarePhotoSearch, callFourSquarePhotoData)
