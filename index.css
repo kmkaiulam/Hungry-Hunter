@@ -1,3 +1,15 @@
+
+/*Header Styling */
+header{
+  margin: -20px;
+  background: url('http://www.bibleclipart.net/images/wood-panel-hd-background-300x240.jpg') center center repeat fixed;
+}
+
+.transparentTextBox{
+  background-color: rgba(255,255,255,0.3);
+  width:100%
+}
+
 .foodButton{
   background: white;
   height: 200px;
@@ -6,23 +18,18 @@
   border-radius:150px;
 }
 
-.transparentTextBox{
-  background-color: rgba(255,255,255,0.3);
-  width:100%
-}
-main{
-  text-align:center;
-}
-
-header{
-  margin: -20px;
-  background: url('http://www.bibleclipart.net/images/wood-panel-hd-background-300x240.jpg') center center repeat fixed;
-  text-align:center;
-}
-
 .foodImg{
   height: 100px;
   width: 100px;
-  
+}
 
+body{
+  text-align:center;
+  background:slategrey;
+  margin-top:20px;
+}
+
+
+main{
+  margin-top:20px;
 }

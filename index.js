@@ -153,6 +153,7 @@ function listenAddressSubmit(){
         const userInput =$(event.currentTarget).find('.js-query');
         const userQueryLocation = userInput.val();
         userInput.val("");
+        
     //Convert userInput into array and then into portion of web address
         let nameLocation = userQueryLocation.split(' ');
         let locationAddress = nameLocation[0];
