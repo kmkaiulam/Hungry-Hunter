@@ -1,14 +1,14 @@
 //API ENDPOINTS
 const GEOCODE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
-const FOURSQUARE_SEARCH_URL = 'https://api.foursquare.com/v2/venues/search'
-const FOURSQUARE_TIPS_URL = 'https://api.foursquare.com/v2/venues/VENUE_ID/tips' // VENUE_ID is a variable... how do I insert it through JSON before? other than uniquely build each endpoint address?
+const FOURSQUARE_URL = 'https://api.foursquare.com/v2/venues/'
+const FOURSQUARE_TIPS_URL = 'https://api.foursquare.com/v2/venues/' // modify to construct endpoint address for search, tips and photos
 
 //Global Variables Here
 let searchLocationGeo = "";
 let locationGeo="";
 let locationGeoLat ="";
 let locationGeoLng = "";
-let venueUniqueId = "";
+
 
 //need to catch if it isn't a valid address or city name
 function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
@@ -38,9 +38,9 @@ function handleCoffeeClick(){
     client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
     radius: 3218.69,
     query: 'coffee',
-    v: '20180423',
+    v: '20180425',
 }
-$.getJSON(FOURSQUARE_SEARCH_URL,fourSquareCoffeeQuery, renderFourSquareData)
+$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareCoffeeQuery, renderFourSquareData)
 });
 }
 
@@ -53,9 +53,9 @@ function handleSandwichClick(){
     client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
     radius: 3218.69,
     query: 'sandwich',
-    v: '20180423',
+    v: '20180425',
 }
-$.getJSON(FOURSQUARE_SEARCH_URL,fourSquareSandwichQuery, renderFourSquareData)
+$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSandwichQuery, renderFourSquareData)
 });
 }
 
@@ -68,16 +68,15 @@ function handleSushiClick(){
     client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
     radius: 3218.69,
     query: 'sushi',
-    v: '20180423',
+    v: '20180425',
 }
-$.getJSON(FOURSQUARE_SEARCH_URL,fourSquareSushiQuery, renderFourSquareData)
+$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareData)
 });
 }
 
-function generateFourSquareResults(venueResults){
+function generateFourSquareResults(venueResults, callFourSquareTipsData){
     venueUniqueId = venueResults.id;
-    console.log(venueUniqueId);
-    retrieveFourSquareTipsData();
+    retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData);
     //call the 2nd ajax request here
     return `
         <div>
@@ -89,20 +88,21 @@ function generateFourSquareResults(venueResults){
 }
 
 function renderFourSquareData(data){
-    console.log(data);
     fourSquareResults = data.response.venues.map((venuesResults) => generateFourSquareResults(venuesResults)); 
     $('#js-search-results').html(fourSquareResults);
 }
 
+
+
 function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
     const fourSquareTipsSearch = {
-        'id': `${venueUniqueId}`, // how do i pass in the array of venueIDs to grab a tip for every one?
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
         client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
         sort: 'popular',
         limit: '1',
+        v: '20180425',
     }
-    $.getJSON(FOURSQUARE_TIPS_URL, fourSquareTipsSearch, callFourSquareTipsData)
+    $.getJSON(`${FOURSQUARE_URL}/${venueUniqueId}/tips`, fourSquareTipsSearch, callFourSquareTipsData)
 }
 
 function callFourSquareTipsData(data){
