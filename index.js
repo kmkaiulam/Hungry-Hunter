@@ -77,6 +77,7 @@ $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareData)
 function generateFourSquareResults(venueResults, callFourSquareTipsData){
     venueUniqueId = venueResults.id;
     retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData);
+    retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData);
     //call the 2nd ajax request here
     return `
         <div>
@@ -92,8 +93,6 @@ function renderFourSquareData(data){
     $('#js-search-results').html(fourSquareResults);
 }
 
-
-
 function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
     const fourSquareTipsSearch = {
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
@@ -102,13 +101,25 @@ function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
         limit: '1',
         v: '20180425',
     }
-    $.getJSON(`${FOURSQUARE_URL}/${venueUniqueId}/tips`, fourSquareTipsSearch, callFourSquareTipsData)
+    $.getJSON(`${FOURSQUARE_URL}/${venueUniqueId}/photos`, fourSquareTipsSearch, callFourSquareTipsData)
 }
 
 function callFourSquareTipsData(data){
     console.log(data);
 }
 
+function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
+    const fourSquarePhotoSearch = {
+        client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+        client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+        v: '20180425',
+    }
+    $.getJSON(`${FOURSQUARE_URL}/${venueUniqueId}/tips`, fourSquarePhotoSearch, callFourSquarePhotoData)
+}
+
+function callFourSquarePhotoData(data){
+    console.log(data);
+}
 //going to need to map your 2nd ajax request to append properly
 //.append any additional results under here using your 2nd ajax request
 
