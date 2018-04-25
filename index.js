@@ -1,19 +1,16 @@
+//API ENDPOINTS
 const GEOCODE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 const FOURSQUARE_SEARCH_URL = 'https://api.foursquare.com/v2/venues/search'
-//locationGeo is an object containing lat/lng
+const FOURSQUARE_TIPS_URL = 'https://api.foursquare.com/v2/venues/VENUE_ID/tips' // VENUE_ID is a variable... how do I insert it through JSON before? other than uniquely build each endpoint address?
+
+//Global Variables Here
 let searchLocationGeo = "";
-let map = "";
 let locationGeo="";
 let locationGeoLat ="";
 let locationGeoLng = "";
-let service = "";
-let infoWindow = "";
-let fourSquareCoffeeQuery = "";
-let fourSquareSushiQuery = "";
-let fourSquareSandwichQuery= "";
-let fourSquareResults = "";
+let venueUniqueId = "";
 
-
+//need to catch if it isn't a valid address or city name
 function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
     const addressSearch = {
         key: 'AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc',
@@ -31,10 +28,11 @@ function callGeoData(data){
      $('#js-search-results').empty();
 }
 
+//EVENT LISTEN - Coffee, Sushi and Sandwiches
 function handleCoffeeClick(){
     $('#buttonCoffee').click(event =>{
         event.preventDefault();
-        fourSquareCoffeeQuery = {
+      const fourSquareCoffeeQuery = {
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
@@ -49,7 +47,7 @@ $.getJSON(FOURSQUARE_SEARCH_URL,fourSquareCoffeeQuery, renderFourSquareData)
 function handleSandwichClick(){
     $('#buttonSandwich').click(event =>{
         event.preventDefault();
-        fourSquareSandwichQuery = {
+       const fourSquareSandwichQuery = {
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
@@ -64,7 +62,7 @@ $.getJSON(FOURSQUARE_SEARCH_URL,fourSquareSandwichQuery, renderFourSquareData)
 function handleSushiClick(){
     $('#buttonSushi').click(event =>{
         event.preventDefault();
-        fourSquareSushiQuery = {
+       const fourSquareSushiQuery = {
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
@@ -76,21 +74,10 @@ $.getJSON(FOURSQUARE_SEARCH_URL,fourSquareSushiQuery, renderFourSquareData)
 });
 }
 
-
-/*
-function fourSquareSearch(locationGeoLat, locationGeoLng){
-    const fourSquareQuery = {
-        ll: `${locationGeoLat}, ${locationGeoLng}`,
-        client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-        client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
-        radius: 3218.69,
-        query: 'cafe',
-        v: '20180423',
-    }
-    $.getJSON(FOURSQUARE_SEARCH_URL,fourSquareQuery, renderFourSquareData)
-}
-*/
 function generateFourSquareResults(venueResults){
+    venueUniqueId = venueResults.id;
+    console.log(venueUniqueId);
+    retrieveFourSquareTipsData();
     //call the 2nd ajax request here
     return `
         <div>
@@ -106,18 +93,27 @@ function renderFourSquareData(data){
     fourSquareResults = data.response.venues.map((venuesResults) => generateFourSquareResults(venuesResults)); 
     $('#js-search-results').html(fourSquareResults);
 }
+
+function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
+    const fourSquareTipsSearch = {
+        'id': `${venueUniqueId}`, // how do i pass in the array of venueIDs to grab a tip for every one?
+        client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+        client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+        sort: 'popular',
+        limit: '1',
+    }
+    $.getJSON(FOURSQUARE_TIPS_URL, fourSquareTipsSearch, callFourSquareTipsData)
+}
+
+function callFourSquareTipsData(data){
+    console.log(data);
+}
+
 //going to need to map your 2nd ajax request to append properly
 //.append any additional results under here using your 2nd ajax request
 
 //callback function can use venueId to grab tips and to properly append
 
-// EVENT LISTENERS SECTION
-function listenClick(){
-    listenAddressSubmit();
-    handleCoffeeClick();
-    handleSandwichClick();
-    handleSushiClick();
-}
 
 function listenAddressSubmit(){
     $('.js-search-form').submit(event =>{
@@ -141,68 +137,12 @@ function listenAddressSubmit(){
    //if results are valid then show buttons 
     
 
+// EVENT LISTENERS SECTION
+function listenClick(){
+    listenAddressSubmit();
+    handleCoffeeClick();
+    handleSandwichClick();
+    handleSushiClick();
+}   
+
 $(listenClick);
-/*
-..Set ASIDE FOR LATER - FIGURE OUT HOW TO DISPLAY MAP
-//Need to figure out how to display map in html --> probably $('#map').html(-----)
-function generateMap(locationGeo, locationGeoLat, locationGeoLng){   
-    let userGeoLocation = new google.maps.LatLng(locationGeoLat, locationGeoLng);
-    map = new google.maps.Map(document.getElementById('map'), { //probably doesn't work because this is an HTML function
-        center : locationGeo,
-        zoom: 17
-    }); 
-    infowindow = new google.maps.InfoWindow();
-    service = new google.maps.places.PlacesService(map);
-
-    let request = {
-        location: locationGeo,
-        radius: '1500',
-        type: ['restaurant']
-    };
-service.nearbySearch(request, callback);
-}
-
-
-
-
-function callback(results, status) {
-    if(status == google.maps.places.PlacesServiceStatus.Ok) {
-        for (let i = 0; i < results.length; i++) {
-            let place = results[i];
-            createMarker(results[i]);
-        }
-    }
-}
-
-function createMarker(place) {
-    let placeLoc = place.geometry.location;
-    let marker = new google.maps.Marker({
-      map: map,
-      position: place.geometry.location
-    });
-    
-
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(place.name);
-      infowindow.open(map, this);
-    });
-}
-
-/*
-function renderMap(){
-    console.log("renderMaps");
-}
-
-//on click event listener to generate all sandwich shops in the area + reviews + hours and 'traffic': use font awesome icon
-function  renderSandwichShops(){
-    console.log('renderSandwichShops ran');
-}
-//on click event listener to generate all sandwich shops in the area + reviews + hours and 'traffic': use font awesome icon
-function renderCoffeeShops(){
-    console.log('renderCoffeeShops ran');
-}
-//on click event listener to generate all sandwich shops in the area + reviews + hours and 'traffic' : use font awesome icon
-function renderSushi(){
-    console.log('renderSushi ran');
-}
-*/
