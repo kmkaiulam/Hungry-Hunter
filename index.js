@@ -35,7 +35,7 @@ function handleCoffeeClick(){
       const fourSquareCoffeeQuery = {
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-    client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
     radius: 3218.69,
     query: 'coffee',
     v: '20180425',
@@ -50,7 +50,7 @@ function handleSandwichClick(){
        const fourSquareSandwichQuery = {
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-    client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
     radius: 3218.69,
     query: 'sandwich',
     v: '20180425',
@@ -65,7 +65,7 @@ function handleSushiClick(){
        const fourSquareSushiQuery = {
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-    client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
     radius: 3218.69,
     query: 'sushi',
     v: '20180425',
@@ -108,14 +108,15 @@ function renderFourSquareTipsData(data){
 }
 
 function renderFourSquarePhotosData(data){
+    console.log(data)
         fourSquarePhotos = data.response.photos.items.map((photoResults) => generateFourSquarePhotoResults(photoResults));
-        $(`#${venueUniqueId}`).append(fourSquarePhotos);
+        $('#js-search-results').append(fourSquarePhotos);
     }
 
 function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
     const fourSquareTipsSearch = {
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-        client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+        client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
         sort: 'popular',
         limit: '1',
         v: '20180425',
@@ -124,13 +125,13 @@ function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
 }
 
 function callFourSquareTipsData(data){
-    console.log(data);
+    renderFourSquareTipsData(data);
 }
 
 function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
     const fourSquarePhotoSearch = {
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-        client_secret: 'IYLWYATBULKOL1KDBPNXX5FVSZ3CLHFLPZLPQDQCH1QGA3VR',
+        client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
         limit: 1,
         v: '20180425',
     }
@@ -138,7 +139,7 @@ function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
 }
 
 function callFourSquarePhotoData(data){
-    console.log(data);
+    renderFourSquarePhotosData(data);
 }
 //going to need to map your 2nd ajax request to append properly
 //.append any additional results under here using your 2nd ajax request

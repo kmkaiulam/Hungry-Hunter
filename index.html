@@ -9,27 +9,27 @@
           integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
           crossorigin="anonymous"></script> 
     <link href="index.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc&libraries=places"></script>
     <script src ="index.js"></script>
 </head>
 <body>
-    <nav role = "navigation">
-    </nav>
-    <main>
-    <h1> Hungry Hunter</h1>
-    <h2> Search nearby for coffee, sushi and sandwiches</h2>
-    <form action ='#' class ='js-search-form'>
-            <label for= 'query'></label>
-            <input type ='text' aria-label ='Address input' class = 'js-query' required placeholder="ex. 1315 10th St B-27, Sacramento, CA 95814">
-            <button id ='js-search-button' type ='submit'> Search</button>
-        </form>
-    
-        <button id = 'buttonCoffee' type = "button" hidden> Coffee icon </button> 
-        <button id = 'buttonSandwich' type = "button" hidden> Sandwich icon </button>
-        <button id = 'buttonSushi' type = "button" hidden> Sushi icon </button>
-
-    
-    <div id = 'js-search-results'></div>
-    <div id = 'map'></div>
+        <header>
+                <div class ='transparentTextBox'> 
+                    <h1 class = 'title'> Hungry Hunter</h1>
+                    <h2 class ='title'> Search nearby for coffee, sushi and sandwiches</h2>
+                </div>
+                <form action ='#' class ='js-search-form'>
+                <label for= 'query'></label>
+                <input type ='text' aria-label ='Address input' class = 'js-query' required placeholder="ex. 1315 10th St B-27, Sacramento, CA 95814">
+                <button id ='js-search-button' type ='submit'> Search</button>
+                </form>
+       
+            <button id = 'buttonCoffee'   class = 'foodButton' type = "button" > <img class='foodImg' src = 'https://freeiconshop.com/wp-content/uploads/edd/coffee-outline-filled.png' alt ='Coffee Icon'></button> 
+            <button id = 'buttonSandwich' class = 'foodButton' type = "button" > <img class='foodImg' src ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwEhrhKGB07-VVIC8yvB2vhO-LTfVU2sS1r49unp4_dATdlAFU' alt ='Sandwich icon'></button>
+            <button id = 'buttonSushi'    class = 'foodButton' type = "button" > <img class='foodImg' src = 'http://chittagongit.com//images/sashimi-icon/sashimi-icon-2.jpg' alt ='Sashimi Icon'></button>
+            </header>
+    <main role = "main">
+       <div id = 'js-search-results'></div>
     </main>
 </body>
 </html>
