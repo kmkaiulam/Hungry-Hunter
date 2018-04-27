@@ -2,7 +2,12 @@
 /*Header Styling */
 header{
   margin: -20px;
-  background: url('http://www.bibleclipart.net/images/wood-panel-hd-background-300x240.jpg') center center repeat fixed;
+  /*background: url('http://www.bibleclipart.net/images/wood-panel-hd-background-300x240.jpg') center center repeat fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  text-align:center;*/
 }
 
 .transparentTextBox{
@@ -16,6 +21,7 @@ header{
   width: 200px; 
   margin: 25px;
   border-radius:150px;
+  border: black solid 3px;
 }
 
 .foodImg{
@@ -24,8 +30,12 @@ header{
 }
 
 body{
+ background: url('http://freedesignfile.com/upload/2017/01/Colorful-blurred-background-with-halation-effect-vector-07.jpg') fixed center center no-repeat ;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   text-align:center;
-  background:slategrey;
   margin-top:20px;
 }
 
