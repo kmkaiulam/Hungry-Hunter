@@ -68,7 +68,7 @@ function handleSushiClick(){
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-    limit: 1, //temporary limit to reduce quota depletion
+    limit: 2, //temporary limit to reduce quota depletion
     radius: 3218.69,
     query: 'sushi',
     v: '20180425',
@@ -77,17 +77,18 @@ $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareSearc
 });
 }
 
-function generateFourSquareSearchResults(venueResults, renderFourSquareTipsData, renderFourSquarePhotoData){
+function generateFourSquareSearchResults(venueResults, callFourSquareTipsData, callFourSquarePhotoData){
     venueUniqueId = venueResults.id;
-    retrieveFourSquareTipsData(venueUniqueId, renderFourSquareTipsData);
-    retrieveFourSquarePhotos(venueUniqueId, renderFourSquarePhotoData);
+    console.log(venueUniqueId);
+    retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData);
+    retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData);
     //call the 2nd ajax request here
     return `
         <div>
         <h2> ${venueResults.name}</h2>
             <div> Distance: ${venueResults.location.distance} meters away</div>   
             <div> ${venueResults.location.formattedAddress} </div>
-            <div id = ${venueUniqueId}></div>`;
+            <div id = ${venueResults.id}></div>`;
             //.append into this section to generate appropriate tips, reviews etc.
 }
 
@@ -96,29 +97,7 @@ function renderFourSquareSearchData(data){
     $('#js-search-results').html(fourSquareSearchResults);
 }
 
-function generateFourSquareTipResults(tipResults){
-    return ` <div class = 'tip'> Tip: ${tipResults.text}</div>
-             <div id = ${venueUniqueId}></div>`
-}
-
-function generateFourSquarePhotoResults(photoResults){
-    console.log(`${photoResults.prefix}`);
-    return `<img class = 'venuePhoto' src = '${photoResults.prefix}150x250${photoResults.suffix}' alt = '${photoResults.source.name}'>`
-}
-
-function renderFourSquareTipsData(data){
-   console.log(data);
-    let fourSquareTips = data.response.tips.items.map((tipResults) => generateFourSquareTipResults(tipResults));
-
-    $(`#${venueUniqueId}`).html(fourSquareTips); //not sure if i need to use append here //How will i link venueUniqueID into this?
-}
-
-function renderFourSquarePhotoData(data){
-    console.log(data)
-      let  fourSquarePhotos = data.response.photos.items.map((photoResults) => generateFourSquarePhotoResults(photoResults));
-        $('#js-search-results').append(fourSquarePhotos);
-    }
-
+//TIPS AJAX Request
 function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
     const fourSquareTipsSearch = {
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
@@ -127,13 +106,25 @@ function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
         limit: '1',
         v: '20180425',
     }
-    $.getJSON(`${FOURSQUARE_URL}${venueUniqueId}/tips`, fourSquareTipsSearch,renderFourSquareTipsData)
+    $.getJSON(`${FOURSQUARE_URL}${venueUniqueId}/tips`, fourSquareTipsSearch, callFourSquareTipsData)
 }
 
 function callFourSquareTipsData(data){
     renderFourSquareTipsData(data);
 }
 
+function renderFourSquareTipsData(data, venueUniqueId){
+        console.log(data);
+         let fourSquareTips = data.response.tips.items.map((tipResults) => generateFourSquareTipResults(tipResults));
+         console.log(`${venueUniqueId}`);
+         $(`#${venueUniqueId}`).append(fourSquareTips); //not sure if i need to use append here //How will i link venueUniqueID into this?
+     }
+     
+
+function generateFourSquareTipResults(tipResults){
+        return ` <div class = 'tip'> Tip: ${tipResults.text}</div>`
+}
+//PHOTO AJAX REQUEST
 function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
     const fourSquarePhotoSearch = {
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
@@ -147,6 +138,21 @@ function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
 function callFourSquarePhotoData(data){
     renderFourSquarePhotosData(data);
 }
+
+function renderFourSquarePhotoData(data){
+    console.log(data)
+      let  fourSquarePhotos = data.response.photos.items.map((photoResults) => generateFourSquarePhotoResults(photoResults));
+      $(`#${venueUniqueId}`).append(fourSquarePhotos);
+}
+
+function generateFourSquarePhotoResults(photoResults){
+        console.log(`${photoResults.prefix}`);
+        return `<div class = 'photoBox'><img class = 'venuePhoto' src = '${photoResults.prefix}125x225${photoResults.suffix}' alt = '${photoResults.source.name}'></div>`
+}
+    
+    
+
+
 //going to need to map your 2nd ajax request to append properly
 //.append any additional results under here using your 2nd ajax request
 
