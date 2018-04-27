@@ -36,6 +36,7 @@ function handleCoffeeClick(){
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+    limit: 1, //temporary limit to reduce quota depletion
     radius: 3218.69,
     query: 'coffee',
     v: '20180425',
@@ -51,6 +52,7 @@ function handleSandwichClick(){
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+    limit: 1, //temporary limit to reduce quota depletion
     radius: 3218.69,
     query: 'sandwich',
     v: '20180425',
@@ -66,6 +68,7 @@ function handleSushiClick(){
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+    limit: 1, //temporary limit to reduce quota depletion
     radius: 3218.69,
     query: 'sushi',
     v: '20180425',
