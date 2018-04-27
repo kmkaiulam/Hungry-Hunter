@@ -103,12 +103,12 @@ function generateFourSquareTipResults(tipResults){
 
 function generateFourSquarePhotoResults(photoResults){
     console.log(`${photoResults.prefix}`);
-    return `<img class = 'venuePhoto' src = '${photoResults.prefix}300x500/${photoResults.suffix}' alt = '${photoResults.source.name}'>`
+    return `<img class = 'venuePhoto' src = '${photoResults.prefix}150x250${photoResults.suffix}' alt = '${photoResults.source.name}'>`
 }
 
 function renderFourSquareTipsData(data){
    console.log(data);
-    let fourSquareTips = data.response.tips.map((tipResults) => generateFourSquareTipResults(tipResults));
+    let fourSquareTips = data.response.tips.items.map((tipResults) => generateFourSquareTipResults(tipResults));
 
     $(`#${venueUniqueId}`).html(fourSquareTips); //not sure if i need to use append here //How will i link venueUniqueID into this?
 }
