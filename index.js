@@ -77,6 +77,7 @@ $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareSearc
 });
 }
 
+//feed all my data from APIs into this results Generator
 function generateFourSquareSearchResults(venueResults, callFourSquareTipsData, callFourSquarePhotoData){
     venueUniqueId = venueResults.id;
     console.log(venueUniqueId);
@@ -93,7 +94,7 @@ function generateFourSquareSearchResults(venueResults, callFourSquareTipsData, c
 }
 
 function renderFourSquareSearchData(data){
-   let fourSquareSearchResults = data.response.venues.map((venuesResults) => generateFourSquareSearchResults(venuesResults)); 
+    fourSquareSearchResults = data.response.venues.map((venuesResults) => generateFourSquareSearchResults(venuesResults)); 
     $('#js-search-results').html(fourSquareSearchResults);
 }
 
@@ -106,23 +107,23 @@ function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
         limit: '1',
         v: '20180425',
     }
-    $.getJSON(`${FOURSQUARE_URL}${venueUniqueId}/tips`, fourSquareTipsSearch, callFourSquareTipsData)
+    $.getJSON(`${FOURSQUARE_URL}${venueUniqueId}/tips`, fourSquareTipsSearch, renderFourSquareTipsData)
 }
 
 function callFourSquareTipsData(data){
     renderFourSquareTipsData(data);
 }
 
-function renderFourSquareTipsData(data, venueUniqueId){
+function renderFourSquareTipsData(data){
         console.log(data);
-         let fourSquareTips = data.response.tips.items.map((tipResults) => generateFourSquareTipResults(tipResults));
+        fourSquareTips = data.response.tips.items.map((tipResults) => generateFourSquareTipResults(tipResults));
          console.log(`${venueUniqueId}`);
          $(`#${venueUniqueId}`).append(fourSquareTips); //not sure if i need to use append here //How will i link venueUniqueID into this?
      }
      
 
 function generateFourSquareTipResults(tipResults){
-        return ` <div class = 'tip'> Tip: ${tipResults.text}</div>`
+        return `<div class = 'tip'> Tip: ${tipResults.text}</div>`
 }
 //PHOTO AJAX REQUEST
 function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
