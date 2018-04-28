@@ -133,17 +133,27 @@ function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
         limit: 1,
         v: '20180425',
     }
-    $.getJSON(`${FOURSQUARE_URL}${venueUniqueId}/photos`, fourSquarePhotoSearch, renderFourSquarePhotoData)
+    const settings = {
+        url: `${FOURSQUARE_URL}${venueUniqueId}/photos`,
+        data: fourSquarePhotoSearch,
+        dataType: 'json',
+        type: 'GET',
+        success: function(data){
+            renderFourSquarePhotoData(data, venueUniqueId)
+        }
+    }
+    $.ajax(settings);
+    //$.getJSON(`${FOURSQUARE_URL}${venueUniqueId}/photos`, fourSquarePhotoSearch, renderFourSquarePhotoData)
 }
 
 function callFourSquarePhotoData(data){
     renderFourSquarePhotosData(data);
 }
 
-function renderFourSquarePhotoData(data){
+function renderFourSquarePhotoData(data, venueId){
     console.log(data)
       let  fourSquarePhotos = data.response.photos.items.map((photoResults) => generateFourSquarePhotoResults(photoResults));
-      $(`#${venueUniqueId}`).append(fourSquarePhotos);
+      $(`#${venueId}`).append(fourSquarePhotos);
 }
 
 function generateFourSquarePhotoResults(photoResults){
