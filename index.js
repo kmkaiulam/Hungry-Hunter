@@ -77,7 +77,7 @@ $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareSearc
 });
 }
 
-//feed all my data from APIs into this results Generator
+
 function generateFourSquareSearchResults(venueResults, callFourSquareTipsData, callFourSquarePhotoData){
     venueUniqueId = venueResults.id;
     console.log(venueUniqueId);
@@ -107,12 +107,18 @@ function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
         limit: '1',
         v: '20180425',
     }
-    $.getJSON(`${FOURSQUARE_URL}${venueUniqueId}/tips`, fourSquareTipsSearch, renderFourSquareTipsData)
+    const tipsSettings = {
+        url:`${FOURSQUARE_URL}${venueUniqueId}/tips`,
+        data: fourSquareTipsSearch,
+        dataType: 'json',
+        type: 'GET',
+        success: function(data){
+                renderFourSquareTipsData(data, venueUniqueId)
+            }
+         }
+     $.ajax(tipsSettings)
 }
 
-function callFourSquareTipsData(data){
-    renderFourSquareTipsData(data);
-}
 
 function renderFourSquareTipsData(data){
         console.log(data);
@@ -133,7 +139,7 @@ function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
         limit: 1,
         v: '20180425',
     }
-    const settings = {
+    const photoSettings = {
         url: `${FOURSQUARE_URL}${venueUniqueId}/photos`,
         data: fourSquarePhotoSearch,
         dataType: 'json',
@@ -142,12 +148,7 @@ function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
             renderFourSquarePhotoData(data, venueUniqueId)
         }
     }
-    $.ajax(settings);
-    //$.getJSON(`${FOURSQUARE_URL}${venueUniqueId}/photos`, fourSquarePhotoSearch, renderFourSquarePhotoData)
-}
-
-function callFourSquarePhotoData(data){
-    renderFourSquarePhotosData(data);
+    $.ajax(photoSettings);
 }
 
 function renderFourSquarePhotoData(data, venueId){
