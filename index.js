@@ -78,19 +78,17 @@ $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareSearc
 }
 
 
-function generateFourSquareSearchResults(venueResults, callFourSquareTipsData, callFourSquarePhotoData){
+function generateFourSquareSearchResults(venueResults){
     venueUniqueId = venueResults.id;
-    console.log(venueUniqueId);
-    retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData);
-    retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData);
-    //call the 2nd ajax request here
+    retrieveFourSquareTipsData(venueUniqueId);
+    retrieveFourSquarePhotos(venueUniqueId);
     return `
         <div>
         <h2> ${venueResults.name}</h2>
             <div> Distance: ${venueResults.location.distance} meters away</div>   
             <div> ${venueResults.location.formattedAddress} </div>
             <div id = ${venueResults.id}></div>`;
-            //.append into this section to generate appropriate tips, reviews etc.
+
 }
 
 function renderFourSquareSearchData(data){
@@ -99,7 +97,7 @@ function renderFourSquareSearchData(data){
 }
 
 //TIPS AJAX Request
-function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
+function retrieveFourSquareTipsData(venueUniqueId){
     const fourSquareTipsSearch = {
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
         client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
@@ -120,11 +118,11 @@ function retrieveFourSquareTipsData(venueUniqueId, callFourSquareTipsData){
 }
 
 
-function renderFourSquareTipsData(data){
+function renderFourSquareTipsData(data, venueId){
         console.log(data);
         fourSquareTips = data.response.tips.items.map((tipResults) => generateFourSquareTipResults(tipResults));
-         console.log(`${venueUniqueId}`);
-         $(`#${venueUniqueId}`).append(fourSquareTips); //not sure if i need to use append here //How will i link venueUniqueID into this?
+         console.log(`${venueId}`);
+         $(`#${venueId}`).append(fourSquareTips); //not sure if i need to use append here //How will i link venueUniqueID into this?
      }
      
 
@@ -132,7 +130,7 @@ function generateFourSquareTipResults(tipResults){
         return `<div class = 'tip'> Tip: ${tipResults.text}</div>`
 }
 //PHOTO AJAX REQUEST
-function retrieveFourSquarePhotos(venueUniqueId, callFourSquarePhotoData){
+function retrieveFourSquarePhotos(venueUniqueId){
     const fourSquarePhotoSearch = {
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
         client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
