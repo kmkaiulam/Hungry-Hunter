@@ -122,12 +122,13 @@ function renderFourSquareTipsData(data, venueId){
         console.log(data);
         fourSquareTips = data.response.tips.items.map((tipResults) => generateFourSquareTipResults(tipResults));
          console.log(`${venueId}`);
-         $(`#${venueId}`).append(fourSquareTips); //not sure if i need to use append here //How will i link venueUniqueID into this?
+         $(`#${venueId}`).append(fourSquareTips);
      }
      
 
 function generateFourSquareTipResults(tipResults){
-        return `<div class = 'tip'> Tip: ${tipResults.text}</div>`
+        return `<div class = 'tip'> Tip: ${tipResults.text}</div> 
+                <a href ='${tipResults.canonicalUrl}'>FourSquare Details</a>`
 }
 //PHOTO AJAX REQUEST
 function retrieveFourSquarePhotos(venueUniqueId){
