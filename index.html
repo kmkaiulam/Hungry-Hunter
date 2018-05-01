@@ -9,7 +9,15 @@
           integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
           crossorigin="anonymous"></script> 
     <link href="index.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc&libraries=places"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc&libraries=places&callback=initAutocomplete"
+       async defer></script>
+    <script> 
+        function initAutocomplete() {
+            autocomplete = new google.maps.places.Autocomplete(
+            (document.getElementById('autocomplete')),
+            {types: ['geocode']});
+      }
+      </script>
     <script src ="index.js"></script>
 </head>
 <body>

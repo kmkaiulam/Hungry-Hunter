@@ -10,6 +10,9 @@ let locationGeoLat ="";
 let locationGeoLng = "";
 
 
+//autoComplete Functionality
+
+
 //need to catch if it isn't a valid address or city name
 function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
     const addressSearch = {
