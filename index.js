@@ -11,9 +11,13 @@ let locationGeoLng = "";
 
 
 //autoComplete Functionality
+function initAutocomplete() {
+    autocomplete = new google.maps.places.Autocomplete(
+    (document.getElementById('autocomplete')),
+    {types: ['geocode']});
+}
 
 
-//need to catch if it isn't a valid address or city name
 function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
     const addressSearch = {
         key: 'AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc',
@@ -39,7 +43,7 @@ function handleCoffeeClick(){
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-    limit: 1, //temporary limit to reduce quota depletion
+    limit: 5, //temporary limit to reduce quota depletion
     radius: 3218.69,
     query: 'coffee',
     v: '20180425',
@@ -55,7 +59,7 @@ function handleSandwichClick(){
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-    limit: 1, //temporary limit to reduce quota depletion
+    limit: 5, //temporary limit to reduce quota depletion
     radius: 3218.69,
     query: 'sandwich',
     v: '20180425',
@@ -71,7 +75,7 @@ function handleSushiClick(){
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-    limit: 2, //temporary limit to reduce quota depletion
+    limit: 5, //temporary limit to reduce quota depletion
     radius: 3218.69,
     query: 'sushi',
     v: '20180425',
