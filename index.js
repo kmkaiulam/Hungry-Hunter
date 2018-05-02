@@ -33,6 +33,7 @@ function callGeoData(data){
      locationGeoLat = data.results[0].geometry.location.lat;
      locationGeoLng = data.results[0].geometry.location.lng;
      $('#js-search-results').empty();
+
 }
 
 //EVENT LISTEN - Coffee, Sushi and Sandwiches
@@ -43,7 +44,7 @@ function handleCoffeeClick(){
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-    limit: 5, //temporary limit to reduce quota depletion
+    limit: 1, //temporary limit to reduce quota depletion
     radius: 3218.69,
     query: 'coffee',
     v: '20180425',
@@ -59,7 +60,7 @@ function handleSandwichClick(){
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-    limit: 5, //temporary limit to reduce quota depletion
+    limit: 1, //temporary limit to reduce quota depletion
     radius: 3218.69,
     query: 'sandwich',
     v: '20180425',
@@ -75,7 +76,7 @@ function handleSushiClick(){
     ll: `${locationGeoLat}, ${locationGeoLng}`,
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-    limit: 5, //temporary limit to reduce quota depletion
+    limit: 1, //temporary limit to reduce quota depletion
     radius: 3218.69,
     query: 'sushi',
     v: '20180425',
@@ -90,11 +91,14 @@ function generateFourSquareSearchResults(venueResults){
     retrieveFourSquareTipsData(venueUniqueId);
     retrieveFourSquarePhotos(venueUniqueId);
     return `
-        <div>
+        <div class ='js-venue-entry'>
         <h2> ${venueResults.name}</h2>
+            <div id = '${venueResults.id}'> </div>
             <div> Distance: ${venueResults.location.distance} meters away</div>   
             <div> ${venueResults.location.formattedAddress} </div>
-            <div id = ${venueResults.id}></div>`;
+            <div id = ${venueResults.id}2></div> 
+            
+            </div>`;
 
 }
 
@@ -129,13 +133,14 @@ function renderFourSquareTipsData(data, venueId){
         console.log(data);
         fourSquareTips = data.response.tips.items.map((tipResults) => generateFourSquareTipResults(tipResults));
          console.log(`${venueId}`);
-         $(`#${venueId}`).append(fourSquareTips);
+         $(`#${venueId}2`).html(fourSquareTips);
      }
      
 
 function generateFourSquareTipResults(tipResults){
         return `<div class = 'tip'> Tip: ${tipResults.text}</div> 
                 <a href ='${tipResults.canonicalUrl}'>FourSquare Details</a>`
+            
 }
 //PHOTO AJAX REQUEST
 function retrieveFourSquarePhotos(venueUniqueId){
@@ -160,7 +165,7 @@ function retrieveFourSquarePhotos(venueUniqueId){
 function renderFourSquarePhotoData(data, venueId){
     console.log(data)
       let  fourSquarePhotos = data.response.photos.items.map((photoResults) => generateFourSquarePhotoResults(photoResults));
-      $(`#${venueId}`).append(fourSquarePhotos);
+      $(`#${venueId}`).html(fourSquarePhotos);
 }
 
 function generateFourSquarePhotoResults(photoResults){

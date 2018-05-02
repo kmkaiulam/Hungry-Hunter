@@ -9,6 +9,7 @@
           integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
           crossorigin="anonymous"></script> 
     <link href="index.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc&libraries=places&callback=initAutocomplete"
        async defer></script>
     <script src ="index.js"></script>
@@ -16,8 +17,9 @@
 <body>
         <header>
                 <div class ='transparentTextBox'> 
-                    <h1 class = 'title'> Hungry Hunter</h1>
-                    <h2 class ='title'> Search nearby for coffee, sushi and sandwiches</h2>
+                    <h1 class = 'title'> Hungry Hunter </h1>
+                    <h2 class ='title'> Search nearby for Coffee, Sandwiches and Sushi</h2>
+                  
                 </div>
                 <form action ='#' class ='js-search-form'>
                 <label for= 'query'></label>
@@ -25,14 +27,16 @@
                 <button id ='js-search-button' type ='submit'> Search</button>
                 </form>
         <div>
-            <button id = 'buttonCoffee'   class = 'foodButton' type = "button" > <img class='foodImg' src = 'https://freeiconshop.com/wp-content/uploads/edd/coffee-outline-filled.png' alt ='Coffee Icon'></button> 
-            <button id = 'buttonSandwich' class = 'foodButton' type = "button" > <img class='foodImg' src ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwEhrhKGB07-VVIC8yvB2vhO-LTfVU2sS1r49unp4_dATdlAFU' alt ='Sandwich icon'></button>
-            <button id = 'buttonSushi'    class = 'foodButton' type = "button" > <img class='foodImg' src = 'http://chittagongit.com//images/sashimi-icon/sashimi-icon-2.jpg' alt ='Sashimi Icon'></button>
-        </div>    
+            <button id = 'buttonCoffee'   class = 'foodButton' type = "button" hidden > <img class='foodImg' src = 'https://freeiconshop.com/wp-content/uploads/edd/coffee-outline-filled.png' alt ='Coffee Icon'></button>
+            <button id = 'buttonSandwich' class = 'foodButton' type = "button" hidden > <img class='foodImg' src ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwEhrhKGB07-VVIC8yvB2vhO-LTfVU2sS1r49unp4_dATdlAFU' alt ='Sandwich icon'></button>
+            <button id = 'buttonSushi'    class = 'foodButton' type = "button" hidden > <img class='foodImg' src = 'http://chittagongit.com//images/sashimi-icon/sashimi-icon-2.jpg' alt ='Sashimi Icon'></button>    
+        </div>
         </header>
             
-    <main role = "main"> <h2 id='js-user-input'> </h2>
-       <div id = 'js-search-results'></div>
+    <main role = "main"> <h2 id='js-user-input'></h2>
+        <div class = 'results-box'>   
+        <div class ='flex-container' id = 'js-search-results'></div>
+        </div>
     </main>
 </body>
 </html>

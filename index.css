@@ -24,10 +24,19 @@ header{
   border: black solid 3px;
 }
 
+.foodButton:hover{
+  border: rgba(4, 133, 54, 0.3) solid 20px; 
+}
+
+.foodButton:focus{
+  border: rgba(4, 133, 54, 0.3) solid 20px; 
+}
+
 .foodImg{
   height: 100px;
   width: 100px;
 }
+
 
 body{
  background: url('http://freedesignfile.com/upload/2017/01/Colorful-blurred-background-with-halation-effect-vector-07.jpg') fixed center center no-repeat ;
@@ -37,6 +46,19 @@ body{
   background-size: cover;
   text-align:center;
   margin-top:20px;
+}
+
+.flex-container{
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  flex-flow: row;
+}
+.js-venue-entry{
+  width:25%;
+  margin:20px;
 }
 
 
