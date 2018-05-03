@@ -128,4 +128,27 @@ margin-bottom:20px;
   background: url('https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center;
 }
 
+/*footer styling*/
 
+.footerSpace{
+  height:650px;
+}
+.footerText{
+  font-family: 'Kaushan Script', cursive;
+  padding: 20px;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-evenly;
+  font-size:50px;
+  color:white;
+  vertical-align:center;
+  background-color: rgba(255,255,255,0.3)
+}
+
+.footerAttribution{
+  width:100px;
+  display:flex;
+  
+
+  height:100px;
+}
