@@ -34,7 +34,7 @@ function callGeoData(data){
      $('#js-search-results').empty();
 
 }
-
+//using OFFSET to page through additional results
 //EVENT LISTEN - Coffee, Sushi and Sandwiches
 function handleCoffeeClick(){
     $('#buttonCoffee').click(event =>{
@@ -44,6 +44,7 @@ function handleCoffeeClick(){
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
     limit: 5, //temporary limit to reduce quota depletion
+    offset: 0,
     radius: 3218.69,
     query: 'coffee',
     v: '20180425',
@@ -60,6 +61,7 @@ function handleSandwichClick(){
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
     limit: 5, //temporary limit to reduce quota depletion
+    offset: 0,
     radius: 3218.69,
     query: 'sandwich',
     v: '20180425',
@@ -76,6 +78,7 @@ function handleSushiClick(){
     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
     limit: 3, //temporary limit to reduce quota depletion
+    offset: 0,
     radius: 3218.69,
     query: 'sushi',
     v: '20180425',
@@ -91,14 +94,14 @@ function generateFourSquareSearchResults(venueResults){
     retrieveFourSquarePhotos(venueUniqueId);
     return `
         <div class ='js-venue-entry'> 
-        <h3> ${venueResults.name}</h3>
-            <div id = '${venueResults.id}'> </div>
-            <div> <strong>Distance:</strong> ${venueResults.location.distance} meters away</div>   
-            <div> ${venueResults.location.formattedAddress} </div>
-            <br><br>
-            <span> <strong>Tip:</strong> <div id = ${venueResults.id}2></div> </span>
-            </div>`;
-
+            <h3 class = 'js-venue-title'> ${venueResults.name}</h3>
+            <div class = 'js-photo-container' id = '${venueResults.id}photo'></div>
+            <div class = 'js-venue-details'> 
+                <div class = 'js-distance'><strong>Distance:</strong> ${venueResults.location.distance} meters away</div>
+                <div class = 'js-address'> <strong>Address:</strong> ${venueResults.location.formattedAddress} </div>
+                <div class = 'js-tip'><strong>Tip:</strong><div id = '${venueResults.id}tip'></div>
+            </div>
+            `
 }
 
 function renderFourSquareSearchData(data){
@@ -132,20 +135,21 @@ function renderFourSquareTipsData(data, venueId){
         console.log(data);
          //in event there are no Tips, display "No Tips Available" 
          if (data.response.tips.count === 0){
-            let noTips = `<div class = 'tip'>No Tips  Available</div> 
+            let noTips = `<div>No Tips  Available</div> 
                          <div> <strong>FourSquare:</strong>  No Link Available </div>`;
-            $(`#${venueId}2`).html(noTips);
+            $(`#${venueId}tip`).html(noTips);
          }
          else{
             fourSquareTips = data.response.tips.items.map((tipResults) => generateFourSquareTipResults(tipResults));
-            $(`#${venueId}2`).html(fourSquareTips);
+            $(`#${venueId}tip`).html(fourSquareTips);
          }
      }
      
 
 function generateFourSquareTipResults(tipResults){
-        return `<div class = 'tip'>${tipResults.text}</div> 
-                <span> FourSquare: <a href ='${tipResults.canonicalUrl}'>Link</a></span>`
+        return `<div>${tipResults.text}</div> 
+                <br>
+                <span> <strong>FourSquare:</strong> <a href ='${tipResults.canonicalUrl}'>Link</a></span>`
             
 }
 //PHOTO AJAX REQUEST
@@ -173,19 +177,19 @@ function renderFourSquarePhotoData(data, venueId){
     console.log(data.response.photos.items.length);
     //in event there are no photos, display "No Image available" 
     if (data.response.photos.items.length === 0) {
-        let noImage = `<img class = 'venuePhoto' src = 'http://chittagongit.com//images/no-image-available-icon/no-image-available-icon-7.jpg' alt = 'No image available'></div>`;
-        $(`#${venueId}`).html(noImage);
+        let noImage = `<img class = 'js-venue-photo' src = 'http://chittagongit.com//images/no-image-available-icon/no-image-available-icon-7.jpg' alt = 'No image available'></div>`;
+        $(`#${venueId}photo`).html(noImage);
     }
 
     else{
       let  fourSquarePhotos = data.response.photos.items.map((photoResults) => generateFourSquarePhotoResults(photoResults));
      // if (data.response.photos.items)
-      $(`#${venueId}`).html(fourSquarePhotos);
+      $(`#${venueId}photo`).html(fourSquarePhotos);
     }
 }
 
 function generateFourSquarePhotoResults(photoResults){
-            return `<img class = 'venuePhoto' src = '${photoResults.prefix}125x225${photoResults.suffix}' alt = '${photoResults.source.name}'></div>`
+            return `<img class = 'js-venue-photo' src = '${photoResults.prefix}150x275${photoResults.suffix}' alt = '${photoResults.source.name}'></div>`
         }         
     
     

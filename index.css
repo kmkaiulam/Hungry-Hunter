@@ -7,10 +7,21 @@ header{
   width: 100%;
 }
 
-.js-query{
-  width: 300px;
-
+main{
+  margin-top:20px;
 }
+
+
+.js-query{
+  width: 315px;
+  height:30px;
+}
+
+#js-search-button{
+  height:30px;
+  width:60px;
+}
+
 .transparentTextBox{
   background-color: rgba(255,255,255,0.3);
   width:100%
@@ -54,33 +65,53 @@ body{
   -o-background-size: cover;
   background-size: cover;
   text-align:center;
-  margin-bottom:100px;
 }
 
 .flex-container{
   display: flex;
   flex-wrap: wrap;
   height: auto;
+  justify-content: space-evenly;
 
 }
 
-.venuePhoto{
-  margin-top:50px;
-  display:flex;
-  
+.js-venue-title{
+  margin:20px 20px 0 20px;
+  width: 100%;
+  background:rgba(255, 228, 196, .7);
+  height: 40px;
+}
+
+.js-photo-container{
+  height:auto;
+  margin-bottom: 0px;
+}
+
+.js-venue-photo{
+  margin-top:0;
+  background: white;
+}
+
+.js-venue-details{
+  margin: 20px;
+  background:rgba(255, 228, 196, .7);
+}
+
+.js-distance{
+margin-bottom:20px;
+}
+
+.js-tip{
+  margin:20px 0;
 }
 
 .js-venue-entry{
   display:flex;
   justify-content:center;
-  flex: 0 0 calc(33.3% - 20px);
+  flex: 1 5 calc(32% - 25px);
   flex-wrap: wrap;
   margin:20px;
   background: url('https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center;
 }
 
-
-main{
-  margin-top:20px;
-}
 
