@@ -1,21 +1,23 @@
-
+html{
+  box-sizing: border-box;
+}
 /*Header Styling */
 header{
-  margin: -20px;
-  /*background: url('http://www.bibleclipart.net/images/wood-panel-hd-background-300x240.jpg') center center repeat fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  text-align:center;*/
+  font-family: 'Kaushan Script', cursive;
+  width: 100%;
 }
 
+.js-query{
+  width: 300px;
+
+}
 .transparentTextBox{
   background-color: rgba(255,255,255,0.3);
   width:100%
 }
 
 .foodButton{
+  cursor: crosshair;
   background: white;
   height: 200px;
   width: 200px; 
@@ -25,12 +27,17 @@ header{
 }
 
 .foodButton:hover{
-  border: rgba(4, 133, 54, 0.3) solid 20px; 
+  border:  solid 20px; 
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
 .foodButton:focus{
   border: rgba(4, 133, 54, 0.3) solid 20px; 
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
 }
+
 
 .foodImg{
   height: 100px;
@@ -39,26 +46,37 @@ header{
 
 
 body{
- background: url('http://freedesignfile.com/upload/2017/01/Colorful-blurred-background-with-halation-effect-vector-07.jpg') fixed center center no-repeat ;
+  font-family: 'Open sans', sans-serif;
+  font-size:16px;
+ background: url('https://c.pxhere.com/photos/cd/ef/monument_valley_usa_wild_west_travel_holiday_tourism_summer_america-1405545.jpg!d') fixed center center no-repeat ;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   text-align:center;
-  margin-top:20px;
+  margin-bottom:100px;
 }
 
 .flex-container{
   display: flex;
-  -webkit-flex-direction: row;
-  flex-direction:row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  flex-flow: row;
+  height: auto;
+
 }
+
+.venuePhoto{
+  margin-top:50px;
+  display:flex;
+  
+}
+
 .js-venue-entry{
-  width:25%;
+  display:flex;
+  justify-content:center;
+  flex: 0 0 calc(33.3% - 20px);
+  flex-wrap: wrap;
   margin:20px;
+  background: url('https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center;
 }
 
 
