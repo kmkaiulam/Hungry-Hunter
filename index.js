@@ -99,7 +99,7 @@ function generateFourSquareSearchResults(venueResults){
             <div class = 'js-venue-details'> 
                 <div class = 'js-distance'><strong>Distance:</strong> ${venueResults.location.distance} meters away</div>
                 <div class = 'js-address'> <strong>Address:</strong> ${venueResults.location.formattedAddress} </div>
-                <div class = 'js-tip'><strong>Tip:</strong><div id = '${venueResults.id}tip'></div>
+                <div class = 'js-tip-link' ><strong>Tip:</strong><div class = 'js-tip-container' id = '${venueResults.id}tip'></div>
             </div>
             `
 }
@@ -135,8 +135,8 @@ function renderFourSquareTipsData(data, venueId){
         console.log(data);
          //in event there are no Tips, display "No Tips Available" 
          if (data.response.tips.count === 0){
-            let noTips = `<div>No Tips  Available</div> 
-                         <div> <strong>FourSquare:</strong>  No Link Available </div>`;
+            let noTips = `<div class = 'js-tips'>No Tips  Available</div> 
+                         <div class = 'js-link'> <strong>FourSquare:</strong>  No Link Available </div>`;
             $(`#${venueId}tip`).html(noTips);
          }
          else{
@@ -147,9 +147,9 @@ function renderFourSquareTipsData(data, venueId){
      
 
 function generateFourSquareTipResults(tipResults){
-        return `<div>${tipResults.text}</div> 
+        return `<div class ='js-tips'>${tipResults.text}</div> 
                 <br>
-                <span> <strong>FourSquare:</strong> <a href ='${tipResults.canonicalUrl}'>Link</a></span>`
+                <div class ='js-link'> <strong>FourSquare:</strong> <a href ='${tipResults.canonicalUrl}'>Link</a></div>`
             
 }
 //PHOTO AJAX REQUEST

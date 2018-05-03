@@ -79,21 +79,28 @@ body{
   margin:20px 20px 0 20px;
   width: 100%;
   background:rgba(255, 228, 196, .7);
-  height: 40px;
+  height: 75px;
 }
 
 .js-photo-container{
   height:auto;
-  margin-bottom: 0px;
+  width: 100%;
 }
 
+/* how do i get photos to line up?*/
 .js-venue-photo{
-  margin-top:0;
+  margin-top:20px;
   background: white;
 }
 
+.js-address{
+height:66px;
+}
 .js-venue-details{
   margin: 20px;
+  height:auto;
+  min-width:300px;
+  min-height:350px;
   background:rgba(255, 228, 196, .7);
 }
 
@@ -101,14 +108,21 @@ body{
 margin-bottom:20px;
 }
 
-.js-tip{
+.js-tip-container{
+  height:auto;
+  min-height:160px;
+}
+.js-tip-link{
   margin:20px 0;
 }
-
+.js-tips{
+  height:auto;
+  min-height:140px;
+}
 .js-venue-entry{
   display:flex;
   justify-content:center;
-  flex: 1 5 calc(32% - 25px);
+  flex: 2 2 calc(32% - 25px);
   flex-wrap: wrap;
   margin:20px;
   background: url('https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center;
