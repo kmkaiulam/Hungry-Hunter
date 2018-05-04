@@ -10,7 +10,9 @@ let locationGeoLat ="";
 let locationGeoLng = "";
 let offsetToken = 0;
 let foodQuery = "";
-let newArray = "";
+let newExploreArray = [];
+let totalResults = 0;
+
 //autoComplete Functionality
 function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(
@@ -29,180 +31,189 @@ function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
 }
 
 function callGeoData(data){
-    console.log(data);
    locationGeo = data.results[0].geometry.location
      locationGeoLat = data.results[0].geometry.location.lat;
      locationGeoLng = data.results[0].geometry.location.lng;
      $('#js-search-results').empty();
 
 }
-//establish global variable offset
-//clicking on new search icon will reset "offset" variable
-//each time "more" is clicked - increment offset by limit (5)
-//previous entries = offset decrement by limit (5) 
-//.html the content into the space
-//make a hardcoded more button that is hidden until you perform a search
-//hide more button when no more results -- hide more button when results returned is less than 5
-//using OFFSET to page through additional results
 
+//Next and Back Buttons
+function handleNextButtonClick(){
+    $('#nextButton').click(event => {
+        $('#backButton').prop('hidden',false);
+        event.preventDefault();
+        offsetToken +=5;
+        if (totalResults - offsetToken < 5){
+            $('#nextButton').prop('hidden', true);
+        } 
+        switch(foodQuery){
+            case 'coffee':  
+               const fourSquareCoffeeQuery = {
+                    ll: `${locationGeoLat}, ${locationGeoLng}`,
+                    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+                    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+                    limit: 5, //temporary limit to reduce quota depletion
+                    offset: offsetToken,
+                    radius: 3218.69,
+                    query: foodQuery,
+                    v: '20180425',
+                }
+                $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
+                break;
+            case 'sandwich':
+                const fourSquareSandwichQuery = {
+                    ll: `${locationGeoLat}, ${locationGeoLng}`,
+                    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+                    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+                    limit: 5, //temporary limit to reduce quota depletion
+                    offset: offsetToken,
+                    radius: 3218.69,
+                    query: foodQuery,
+                    v: '20180425',
+                }
+                $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSandwichQuery, renderFourSquareSearchData)
+                break;
+            case 'sushi':
+                const fourSquareSushiQuery = {
+                    ll: `${locationGeoLat}, ${locationGeoLng}`,
+                    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+                    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+                    limit: 5, //temporary limit to reduce quota depletion
+                    offset: offsetToken,
+                    radius: 3218.69,
+                    query: foodQuery,
+                    v: '20180425',
+                }
+                $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
+                break;
+            }
+    });
+}
+
+function handleBackButtonClick(){
+    $('#backButton').click(event => {
+        event.preventDefault();
+        if (offsetToken > 0){
+            offsetToken = offsetToken - 5;
+            }
+        if (offsetToken === 0) {
+            $('#backButton').prop('hidden', true);
+        }
+        if (totalResults - offsetToken > 5){
+            $('#nextButton').prop('hidden', false);
+        } 
+        switch(foodQuery){
+            case 'coffee':  
+               const fourSquareCoffeeQuery = {
+                    ll: `${locationGeoLat}, ${locationGeoLng}`,
+                    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+                    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+                    limit: 5, //temporary limit to reduce quota depletion
+                    offset: offsetToken,
+                    radius: 3218.69,
+                    query: foodQuery,
+                    v: '20180425',
+                }
+                $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
+                break;
+            case 'sandwich':
+                const fourSquareSandwichQuery = {
+                    ll: `${locationGeoLat}, ${locationGeoLng}`,
+                    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+                    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+                    limit: 5, //temporary limit to reduce quota depletion
+                    offset: offsetToken,
+                    radius: 3218.69,
+                    query: foodQuery,
+                    v: '20180425',
+                }
+                $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSandwichQuery, renderFourSquareSearchData)
+                break;
+            case 'sushi':
+                const fourSquareSushiQuery = {
+                    ll: `${locationGeoLat}, ${locationGeoLng}`,
+                    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+                    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+                    limit: 5, //temporary limit to reduce quota depletion
+                    offset: offsetToken,
+                    radius: 3218.69,
+                    query: foodQuery,
+                    v: '20180425',
+                }
+                $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
+                break;
+            }
+    });
+}
+function hideNavButtons(){
+    totalResults = 0;
+    $('#nextButton').prop('hidden', true);
+    $('#backButton').prop('hidden', true);
+}
 
 //EVENT LISTEN - Coffee, Sushi and Sandwiches
-//Handles the More Button
-$('#more').click(event => {
-    $('#previous').prop('hidden',false);
-    event.preventDefault();
-    offsetToken += 5;
-    switch(foodQuery){
-        case 'coffee':  
-            const fourSquareCoffeeQuery = {
-                ll: `${locationGeoLat}, ${locationGeoLng}`,
-                client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-                client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                limit: 5, //temporary limit to reduce quota depletion
-                offset: offsetToken,
-                radius: 3218.69,
-                query: foodQuery,
-                v: '20180425',
-            }
-            $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
-            break;
-        case 'sandwich':
-            const fourSquareSandwichQuery = {
-                ll: `${locationGeoLat}, ${locationGeoLng}`,
-                client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-                client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                limit: 5, //temporary limit to reduce quota depletion
-                offset: offsetToken,
-                radius: 3218.69,
-                query: foodQuery,
-                v: '20180425',
-            }
-            $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSandwichQuery, renderFourSquareSearchData)
-            break;
-        case 'sushi':
-            const fourSquareSushiQuery = {
-                ll: `${locationGeoLat}, ${locationGeoLng}`,
-                client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-                client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                limit: 5, //temporary limit to reduce quota depletion
-                offset: offsetToken,
-                radius: 3218.69,
-                query: foodQuery,
-                v: '20180425',
-            }
-            $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
-            break;
-        }
-});
-//handle Previous Button
-$('#previous').click(event => {
-    event.preventDefault();
-    offsetToken -= 5;
-    if (offsetToken === 0){
-        $('#previous').prop('hidden',true);
-    }
-    switch(foodQuery){
-        case 'coffee':  
-            const fourSquareCoffeeQuery = {
-                ll: `${locationGeoLat}, ${locationGeoLng}`,
-                client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-                client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                limit: 5, //temporary limit to reduce quota depletion
-                offset: offsetToken,
-                radius: 3218.69,
-                query: foodQuery,
-                v: '20180425',
-            }
-            $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
-            break;
-        case 'sandwich':
-            const fourSquareSandwichQuery = {
-                ll: `${locationGeoLat}, ${locationGeoLng}`,
-                client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-                client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                limit: 5, //temporary limit to reduce quota depletion
-                offset: offsetToken,
-                radius: 3218.69,
-                query: foodQuery,
-                v: '20180425',
-            }
-            $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSandwichQuery, renderFourSquareSearchData)
-            break;
-        case 'sushi':
-            const fourSquareSushiQuery = {
-                ll: `${locationGeoLat}, ${locationGeoLng}`,
-                client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-                client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                limit: 5, //temporary limit to reduce quota depletion
-                offset: offsetToken,
-                radius: 3218.69,
-                query: foodQuery,
-                v: '20180425',
-            }
-            $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
-            break;
-        }
-});
-
-
 function handleCoffeeClick(){
     $('#buttonCoffee').click(event =>{
         event.preventDefault();
-        $('#more').prop('hidden',false);
+        $('#nextButton').prop('hidden',false);
         offsetToken = 0;
-        foodQuery = 'coffee'
-      const fourSquareCoffeeQuery = {
-    ll: `${locationGeoLat}, ${locationGeoLng}`,
-    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-    limit: 5, //temporary limit to reduce quota depletion
-    offset: offsetToken,
-    radius: 3218.69,
-    query: foodQuery,
-    v: '20180425',
-}
-$.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
-});
+        foodQuery = 'coffee';
+        $('#js-search-results').empty();
+        const fourSquareCoffeeQuery = {
+            ll: `${locationGeoLat}, ${locationGeoLng}`,
+            client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+            client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+            limit: 5, //temporary limit to reduce quota depletion
+            offset: offsetToken,
+            radius: 3218.69,
+            query: foodQuery,
+            v: '20180425',
+        }
+        $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
+    });
 }
 
 function handleSandwichClick(){
     $('#buttonSandwich').click(event =>{
         event.preventDefault();
-        $('#more').prop('hidden',false);
+        $('#nextButton').prop('hidden',false);
         offsetToken = 0;
-        foodQuery = 'sandwich'
+        foodQuery = 'sandwich';
+        $('#js-search-results').empty();
        const fourSquareSandwichQuery = {
-    ll: `${locationGeoLat}, ${locationGeoLng}`,
-    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-    limit: 5, //temporary limit to reduce quota depletion
-    offset: offsetToken,
-    radius: 3218.69,
-    query: foodQuery,
-    v: '20180425',
-}
-$.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSandwichQuery, renderFourSquareSearchData)
-});
+            ll: `${locationGeoLat}, ${locationGeoLng}`,
+            client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+            client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+            limit: 5, //temporary limit to reduce quota depletion
+            offset: offsetToken,
+            radius: 3218.69,
+            query: foodQuery,
+            v: '20180425',
+        }
+        $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSandwichQuery, renderFourSquareSearchData)
+    });
 }
 
 function handleSushiClick(){
     $('#buttonSushi').click(event =>{
         event.preventDefault();
-        $('#more').prop('hidden',false);
-        foodQuery = 'sushi'
+        $('#nextButton').prop('hidden',false);
         offsetToken = 0;
+        foodQuery = 'sushi';
+        $('#js-search-results').empty();
        const fourSquareSushiQuery = {
-    ll: `${locationGeoLat}, ${locationGeoLng}`,
-    client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-    client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-    limit: 5, //temporary limit to reduce quota depletion
-    offset: offsetToken,
-    radius: 3218.69,
-    query: foodQuery,
-    v: '20180425',
-}
-$.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
-});
+            ll: `${locationGeoLat}, ${locationGeoLng}`,
+            client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+            client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+            limit: 5, //temporary limit to reduce quota depletion
+            offset: offsetToken,
+            radius: 3218.69,
+            query: foodQuery,
+            v: '20180425',
+        }
+        $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
+    });
 }
 
 
@@ -223,11 +234,16 @@ function generateFourSquareSearchResults(venueResults){
 }
 
 function renderFourSquareSearchData(data){
-    console.log(data.response.groups[0].items[0]);
+    $('.js-venue-entry').remove();
+        totalResults = data.response.totalResults;
     let explore = data.response.groups[0].items;
-    newArray = [explore[0].venue, explore[1].venue, explore[2].venue, explore[3].venue, explore[4].venue];
-    fourSquareSearchResults = newArray.map((venuesResults) => generateFourSquareSearchResults(venuesResults)); 
+//Allow for scalabilty if limit is changed
+    for (let i=0; i <explore.length; i++) {
+    newExploreArray.push(explore[i].venue);
+}
+   const fourSquareSearchResults = newExploreArray.map((venuesResults) => generateFourSquareSearchResults(venuesResults)); 
     $('#js-search-results').html(fourSquareSearchResults);
+    newExploreArray = [];
 }
 
 //TIPS AJAX Request
@@ -253,7 +269,6 @@ function retrieveFourSquareTipsData(venueUniqueId){
 
 
 function renderFourSquareTipsData(data, venueId){
-        console.log(data);
          //in event there are no Tips, display "No Tips Available" 
          if (data.response.tips.count === 0){
             let noTips = `<div class = 'js-tips'>No Tips  Available</div> 
@@ -295,8 +310,6 @@ function retrieveFourSquarePhotos(venueUniqueId){
 }
 
 function renderFourSquarePhotoData(data, venueId){
-    console.log(data);
-    console.log(data.response.photos.items.length);
     //in event there are no photos, display "No Image available" 
     if (data.response.photos.items.length === 0) {
         let noImage = `<img class = 'js-venue-photo' src = 'http://chittagongit.com//images/no-image-available-icon/no-image-available-icon-7.jpg' alt = 'No image available'></div>`;
@@ -319,6 +332,7 @@ function generateFourSquarePhotoResults(photoResults){
 function listenAddressSubmit(){
     $('.js-search-form').submit(event =>{
         event.preventDefault();
+        hideNavButtons();
         const userInput =$(event.currentTarget).find('.js-query');
         const userQueryLocation = userInput.val();
         userInput.val("");
@@ -345,6 +359,8 @@ function listenClick(){
     handleCoffeeClick();
     handleSandwichClick();
     handleSushiClick();
+    handleNextButtonClick();
+    handleBackButtonClick();
 }   
 
 $(listenClick);
