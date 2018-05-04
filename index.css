@@ -88,14 +88,14 @@ body{
 
 .js-photo-container{
   width: 300px;
-  height:400px;
+  height:350px;
   
 }
 
 .js-venue-photo{
   margin-top:20px;
-  width:300px;
-  height:400px;
+  width:inherit;
+  height: inherit;
   background: white;
 }
 
@@ -104,8 +104,8 @@ height:66px;
 }
 .js-venue-details{
   margin: 20px;
-  height:400px;
   width:300px;
+  height:350px;
   min-height:350px;
   background:rgba(255, 228, 196, .7);
 }
