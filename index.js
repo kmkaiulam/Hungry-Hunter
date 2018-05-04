@@ -136,6 +136,7 @@ function renderFourSquareTipsData(data, venueId){
          //in event there are no Tips, display "No Tips Available" 
          if (data.response.tips.count === 0){
             let noTips = `<div class = 'js-tips'>No Tips  Available</div> 
+                          <br>
                          <div class = 'js-link'> <strong>FourSquare:</strong>  No Link Available </div>`;
             $(`#${venueId}tip`).html(noTips);
          }
@@ -189,7 +190,7 @@ function renderFourSquarePhotoData(data, venueId){
 }
 
 function generateFourSquarePhotoResults(photoResults){
-            return `<img class = 'js-venue-photo' src = '${photoResults.prefix}150x275${photoResults.suffix}' alt = '${photoResults.source.name}'></div>`
+            return `<img class = 'js-venue-photo' src = '${photoResults.prefix}300x400${photoResults.suffix}' alt = '${photoResults.source.name}'></div>`
         }         
     
     

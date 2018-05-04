@@ -7,38 +7,43 @@ header{
   width: 100%;
 }
 
-main{
-  margin-top:20px;
-}
-
-
-.js-query{
-  width: 315px;
-  height:30px;
-}
-
-#js-search-button{
-  height:30px;
-  width:60px;
-}
-
 .transparentTextBox{
   background-color: rgba(255,255,255,0.3);
   width:100%
 }
 
+/* Search Bar Styling */
+.js-query{
+  width: 315px;
+  height:30px;
+}
+
+#js-search-button:hover{
+  cursor:pointer;
+}
+#js-search-button{
+  height:30px;
+  width:60px;
+}
+
+/*food button Styling */
+.flexButtonWrapper{
+  display:flex;
+  justify-content:space-evenly;
+}
+
 .foodButton{
+  margin-top: 10px;
   cursor: crosshair;
   background: white;
-  height: 200px;
-  width: 200px; 
-  margin: 25px;
+  height: 150px;
+  width: 150px; 
   border-radius:150px;
   border: black solid 3px;
 }
 
 .foodButton:hover{
-  border:  solid 20px; 
+  border:  rgba(4, 133, 54, 0.3)  solid 20px; 
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
 }
@@ -49,13 +54,12 @@ main{
   filter: grayscale(100%);
 }
 
-
 .foodImg{
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
 }
 
-
+/*Content Styling */
 body{
   font-family: 'Open sans', sans-serif;
   font-size:16px;
@@ -87,7 +91,6 @@ body{
   width: 100%;
 }
 
-/* how do i get photos to line up?*/
 .js-venue-photo{
   margin-top:20px;
   background: white;
@@ -99,7 +102,7 @@ height:66px;
 .js-venue-details{
   margin: 20px;
   height:auto;
-  min-width:300px;
+  width:300px;
   min-height:350px;
   background:rgba(255, 228, 196, .7);
 }
@@ -148,7 +151,5 @@ margin-bottom:20px;
 .footerAttribution{
   width:100px;
   display:flex;
-  
-
   height:100px;
 }
