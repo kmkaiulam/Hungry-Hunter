@@ -4,7 +4,6 @@ const FOURSQUARE_URL = 'https://api.foursquare.com/v2/venues/' // modify to cons
 
 
 //Global Variables Here
-let searchLocationGeo = "";
 let locationGeo="";
 let locationGeoLat ="";
 let locationGeoLng = "";
@@ -72,7 +71,7 @@ function handleNextButtonClick(){
                     query: foodQuery,
                     v: '20180425',
                 }
-                $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSandwichQuery, renderFourSquareSearchData)
+                $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSandwichQuery, renderFourSquareSearchData)
                 break;
             case 'sushi':
                 const fourSquareSushiQuery = {
@@ -113,7 +112,7 @@ function handleBackButtonClick(){
                     offset: offsetToken,
                     radius: 3218.69,
                     query: foodQuery,
-                    v: '20180425',
+                    v: '20180504',
                 }
                 $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
                 break;
@@ -126,9 +125,9 @@ function handleBackButtonClick(){
                     offset: offsetToken,
                     radius: 3218.69,
                     query: foodQuery,
-                    v: '20180425',
+                    v: '20180504',
                 }
-                $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSandwichQuery, renderFourSquareSearchData)
+                $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSandwichQuery, renderFourSquareSearchData)
                 break;
             case 'sushi':
                 const fourSquareSushiQuery = {
@@ -139,13 +138,14 @@ function handleBackButtonClick(){
                     offset: offsetToken,
                     radius: 3218.69,
                     query: foodQuery,
-                    v: '20180425',
+                    v: '20180504',
                 }
                 $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
                 break;
             }
     });
 }
+//resets totalResults and hides buttons for new search
 function hideNavButtons(){
     totalResults = 0;
     $('#nextButton').prop('hidden', true);
@@ -168,7 +168,7 @@ function handleCoffeeClick(){
             offset: offsetToken,
             radius: 3218.69,
             query: foodQuery,
-            v: '20180425',
+            v: '20180504',
         }
         $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
     });
@@ -189,7 +189,7 @@ function handleSandwichClick(){
             offset: offsetToken,
             radius: 3218.69,
             query: foodQuery,
-            v: '20180425',
+            v: '20180504',
         }
         $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSandwichQuery, renderFourSquareSearchData)
     });
@@ -210,7 +210,7 @@ function handleSushiClick(){
             offset: offsetToken,
             radius: 3218.69,
             query: foodQuery,
-            v: '20180425',
+            v: '20180504',
         }
         $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
     });
@@ -253,7 +253,7 @@ function retrieveFourSquareTipsData(venueUniqueId){
         client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
         sort: 'popular',
         limit: '1',
-        v: '20180425',
+        v: '20180504',
     }
     const tipsSettings = {
         url:`${FOURSQUARE_URL}${venueUniqueId}/tips`,
@@ -295,7 +295,7 @@ function retrieveFourSquarePhotos(venueUniqueId){
         client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
         client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
         limit: 1,
-        v: '20180425',
+        v: '20180504',
     }
     const photoSettings = {
         url: `${FOURSQUARE_URL}${venueUniqueId}/photos`,
