@@ -1,7 +1,7 @@
 //API ENDPOINTS
 const GEOCODE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
-const FOURSQUARE_URL = 'https://api.foursquare.com/v2/venues/' // modify to construct endpoint address for explore, tips and photos
-
+const FOURSQUARE_URL = 'https://api.foursquare.com/v2/venues/explore'
+const FOURSQUARE_TIPS_URL = 'https://api.foursquare.com/v2/venues/' // modify to construct endpoint address for search, tips and photos
 
 //Global Variables Here
 let searchLocationGeo = "";
@@ -10,7 +10,6 @@ let locationGeoLat ="";
 let locationGeoLng = "";
 let offsetToken = 0;
 let foodQuery = "";
-let newArray = "";
 //autoComplete Functionality
 function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(
@@ -64,7 +63,7 @@ $('#more').click(event => {
                 query: foodQuery,
                 v: '20180425',
             }
-            $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
+            $.getJSON(`${FOURSQUARE_URL}search`,fourSquareCoffeeQuery, renderFourSquareSearchData)
             break;
         case 'sandwich':
             const fourSquareSandwichQuery = {
@@ -90,7 +89,7 @@ $('#more').click(event => {
                 query: foodQuery,
                 v: '20180425',
             }
-            $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
+            $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareSearchData)
             break;
         }
 });
@@ -113,7 +112,7 @@ $('#previous').click(event => {
                 query: foodQuery,
                 v: '20180425',
             }
-            $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
+            $.getJSON(`${FOURSQUARE_URL}search`,fourSquareCoffeeQuery, renderFourSquareSearchData)
             break;
         case 'sandwich':
             const fourSquareSandwichQuery = {
@@ -126,7 +125,7 @@ $('#previous').click(event => {
                 query: foodQuery,
                 v: '20180425',
             }
-            $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSandwichQuery, renderFourSquareSearchData)
+            $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSandwichQuery, renderFourSquareSearchData)
             break;
         case 'sushi':
             const fourSquareSushiQuery = {
@@ -139,7 +138,7 @@ $('#previous').click(event => {
                 query: foodQuery,
                 v: '20180425',
             }
-            $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
+            $.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareSearchData)
             break;
         }
 });
@@ -161,7 +160,7 @@ function handleCoffeeClick(){
     query: foodQuery,
     v: '20180425',
 }
-$.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
+$.getJSON(`${FOURSQUARE_URL}search`,fourSquareCoffeeQuery, renderFourSquareSearchData)
 });
 }
 
@@ -181,7 +180,7 @@ function handleSandwichClick(){
     query: foodQuery,
     v: '20180425',
 }
-$.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSandwichQuery, renderFourSquareSearchData)
+$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSandwichQuery, renderFourSquareSearchData)
 });
 }
 
@@ -201,7 +200,7 @@ function handleSushiClick(){
     query: foodQuery,
     v: '20180425',
 }
-$.getJSON(`${FOURSQUARE_URL}explore`,fourSquareSushiQuery, renderFourSquareSearchData)
+$.getJSON(`${FOURSQUARE_URL}/search`,fourSquareSushiQuery, renderFourSquareSearchData)
 });
 }
 
@@ -223,10 +222,7 @@ function generateFourSquareSearchResults(venueResults){
 }
 
 function renderFourSquareSearchData(data){
-    console.log(data.response.groups[0].items[0]);
-    let explore = data.response.groups[0].items;
-    newArray = [explore[0].venue, explore[1].venue, explore[2].venue, explore[3].venue, explore[4].venue];
-    fourSquareSearchResults = newArray.map((venuesResults) => generateFourSquareSearchResults(venuesResults)); 
+    fourSquareSearchResults = data.response.venues.map((venuesResults) => generateFourSquareSearchResults(venuesResults)); 
     $('#js-search-results').html(fourSquareSearchResults);
 }
 
