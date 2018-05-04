@@ -108,7 +108,7 @@ function handleBackButtonClick(){
                     ll: `${locationGeoLat}, ${locationGeoLng}`,
                     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
                     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                    limit: 5, //temporary limit to reduce quota depletion
+                    limit: 5, 
                     offset: offsetToken,
                     radius: 3218.69,
                     query: foodQuery,
@@ -121,7 +121,7 @@ function handleBackButtonClick(){
                     ll: `${locationGeoLat}, ${locationGeoLng}`,
                     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
                     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                    limit: 5, //temporary limit to reduce quota depletion
+                    limit: 5, 
                     offset: offsetToken,
                     radius: 3218.69,
                     query: foodQuery,
@@ -134,7 +134,7 @@ function handleBackButtonClick(){
                     ll: `${locationGeoLat}, ${locationGeoLng}`,
                     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
                     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                    limit: 5, //temporary limit to reduce quota depletion
+                    limit: 5, 
                     offset: offsetToken,
                     radius: 3218.69,
                     query: foodQuery,
@@ -164,7 +164,7 @@ function handleCoffeeClick(){
             ll: `${locationGeoLat}, ${locationGeoLng}`,
             client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
             client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-            limit: 5, //temporary limit to reduce quota depletion
+            limit: 5,
             offset: offsetToken,
             radius: 3218.69,
             query: foodQuery,
@@ -185,7 +185,7 @@ function handleSandwichClick(){
             ll: `${locationGeoLat}, ${locationGeoLng}`,
             client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
             client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-            limit: 5, //temporary limit to reduce quota depletion
+            limit: 5, 
             offset: offsetToken,
             radius: 3218.69,
             query: foodQuery,
@@ -206,7 +206,7 @@ function handleSushiClick(){
             ll: `${locationGeoLat}, ${locationGeoLng}`,
             client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
             client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-            limit: 5, //temporary limit to reduce quota depletion
+            limit: 5, 
             offset: offsetToken,
             radius: 3218.69,
             query: foodQuery,
@@ -318,7 +318,6 @@ function renderFourSquarePhotoData(data, venueId){
 
     else{
       let  fourSquarePhotos = data.response.photos.items.map((photoResults) => generateFourSquarePhotoResults(photoResults));
-     // if (data.response.photos.items)
       $(`#${venueId}photo`).html(fourSquarePhotos);
     }
 }
@@ -327,7 +326,11 @@ function generateFourSquarePhotoResults(photoResults){
             return `<img class = 'js-venue-photo' src = '${photoResults.prefix}300x400${photoResults.suffix}' alt = '${photoResults.source.name}'></div>`
         }         
     
-    
+function showSearchButtons(){
+    $('#buttonCoffee').prop('hidden',false);
+    $('#buttonSandwich').prop('hidden', false);
+    $('#buttonSushi').prop('hidden',false);
+}    
 
 function listenAddressSubmit(){
     $('.js-search-form').submit(event =>{
@@ -344,10 +347,7 @@ function listenAddressSubmit(){
     locationAddress = `${locationAddress}+${nameLocation[i]}`; 
 }
     searchLocationGeo = locationAddress;
-    //make visible search buttons after user entry
-    $('#buttonCoffee').prop('hidden',false);
-    $('#buttonSandwich').prop('hidden', false);
-    $('#buttonSushi').prop('hidden',false);
+    showSearchButtons();
     retrieveGoogleGeocodingData(searchLocationGeo, callGeoData);
 });
 }
