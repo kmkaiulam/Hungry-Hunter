@@ -14,7 +14,7 @@ header{
 
 /* Search Bar Styling */
 .js-query{
-  width: 315px;
+  width: 300px;
   height:30px;
 }
 
@@ -25,6 +25,7 @@ header{
   height:30px;
   width:60px;
 }
+
 
 /*food button Styling */
 .flexButtonWrapper{
@@ -42,13 +43,13 @@ header{
   border: black solid 3px;
 }
 
-.foodButton:hover{
+.foodButton:hover, .navButton:hover{
   border:  rgba(4, 133, 54, 0.3)  solid 20px; 
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
 }
 
-.foodButton:focus{
+.foodButton:focus, .navButton:focus{
   border: rgba(4, 133, 54, 0.3) solid 20px; 
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
@@ -133,11 +134,22 @@ margin-bottom:20px;
   margin:20px;
   background: url('https://images.pexels.com/photos/129731/pexels-photo-129731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') no-repeat center center;
 }
+/* back and next button styling */
+.navButton{
+  cursor: crosshair;
+  margin: 10px;
+  font-size: 20px;
+  background: white;
+  height: 125px;
+  width: 125px; 
+  border-radius:125px;
+  border: black
+}
 
 /*footer styling*/
 
 .footerSpace{
-  height:650px;
+  height:450px;
 }
 .footerText{
   font-family: 'Kaushan Script', cursive;
@@ -155,4 +167,49 @@ margin-bottom:20px;
   width:100px;
   display:flex;
   height:100px;
+}
+
+
+@media only screen and (max-width: 360px) {
+  .foodButton{
+    margin-top: 10px;
+    background: white;
+    height: 125px;
+    width: 125px; 
+    border-radius:125px;
+    border: black solid 3px;
+  }
+
+  .foodImg{
+    height: 50px;
+    width: 50px;
+  }
+  
+  
+  .footerSpace{
+    height:225px;
+  }
+  .footerText{
+    font-family: 'Kaushan Script', cursive;
+    padding: 20px;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-evenly;
+    font-size:25px;
+    color:white;
+    vertical-align:center;
+    background-color: rgba(255,255,255,0.3)
+  }
+  
+  .footerAttribution{
+    width:50px;
+    display:flex;
+    height:50px;
+}
+.js-venue-entry{
+  max-width: 300px;
+  margin:20px;
+
+}
+
 }
