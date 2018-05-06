@@ -2,14 +2,10 @@ html{
   box-sizing: border-box;
 }
 /*Header Styling */
-header{
-  font-family: 'Kaushan Script', cursive;
-  width: 100%;
-}
-
 .transparentTextBox{
-  background-color: rgba(255,255,255,0.3);
-  width:100%
+  background-color: rgba(255,255,255,0.7);
+  width:100%;
+  font-family: 'Kaushan Script', cursive;
 }
 
 /* Search Bar Styling */
@@ -149,7 +145,7 @@ margin-bottom:20px;
 /*footer styling*/
 
 .footerSpace{
-  height:450px;
+  height:600px;
 }
 .footerText{
   font-family: 'Kaushan Script', cursive;

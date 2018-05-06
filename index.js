@@ -12,6 +12,8 @@ let foodQuery = "";
 let newExploreArray = [];
 let totalResults = 0;
 
+
+
 //autoComplete Functionality
 function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(
@@ -332,12 +334,18 @@ function showSearchButtons(){
     $('#buttonSushi').prop('hidden',false);
 }    
 
+function displayUserInput(userInput){
+    $('#js-user-address').html(userInput);
+    $('#js-user-input').prop('hidden', false);
+}
+
 function listenAddressSubmit(){
     $('.js-search-form').submit(event =>{
         event.preventDefault();
         hideNavButtons();
         const userInput =$(event.currentTarget).find('.js-query');
         const userQueryLocation = userInput.val();
+        displayUserInput(userQueryLocation);
         userInput.val("");
         
     //Convert userInput into array and then into portion of web address
