@@ -1,17 +1,18 @@
 # Hungry Hunter
-LINK TO LIVE APP</br>
+LINK TO LIVE APP:</br>
 https://kmlamthinkful.github.io/Capstone-One/ </br>
+
 MOTIVATION:</br>
 This is for you if you're like me and can't settle for:</br> 
  -  just anything with caffeine in it, </br>
  -  a sandwich composed of bread whose name only has 1 syllable,</br>
  -  or a sushi roll made with old rice
 
-SUMMARY
+SUMMARY:
 </br>
 Hungry Hunter is there for you when you need good food nearby and now.
 
-SCREENSHOTS</br>
+SCREENSHOTS:</br>
 -START-
 ![Screenshot](https://github.com/kmlamthinkful/Capstone-One/blob/master/screenshots/Capstone%20One_%20Hungry%20Hunter%20-%20Start%20Page.png)
 
@@ -22,13 +23,13 @@ SCREENSHOTS</br>
 ![Screenshot](https://github.com/kmlamthinkful/Capstone-One/blob/master/screenshots/Capstone%20One_%20Hungry%20Hunter%20-%20Results.png)
 
 
-TECHNOLOGY
+TECHNOLOGY:
 </br>
 HTML
 CSS
 JAVASCRIPT
 
-APIS</br>
+APIS:</br>
 Foursquare</br>
 Google Geocoding  
 Google Maps JavaScript
