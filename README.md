@@ -1,15 +1,15 @@
 # Hungry Hunter
 LINK TO LIVE APP</br>
 https://kmlamthinkful.github.io/Capstone-One/
+MOTIVATION:
+This is for you if you're like me and can't settle for:</br> 
+ -  just anything with caffeine in it, </br>
+ -  a sandwich composed of bread whose name only has 1 syllable,</br>
+ -  or a sushi roll made with old rice
 
 SUMMARY
 </br>
-If you're like me and can't settle for:</br> 
- -  just anything with caffeine in it, </br>
- -  a sandwich composed of bread whose name only has 1 syllable,</br>
- -  or a sushi roll made with old rice,</br>
-then Hungry Hunter is there for you.</br>
-Grab details on cafes, sandwich shops and sushi restaurants to help you start your hunt for good food nearby and now.
+Hungry Hunter is there for you when you need good food nearby and now.
 
 SCREENSHOTS</br>
 -START-
