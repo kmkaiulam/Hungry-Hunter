@@ -37,6 +37,8 @@ html{
   width: 150px; 
   border-radius:150px;
   border: black solid 3px;
+  transition-property: border, border-radius;
+  transition-duration: 1s;
 }
 
 .foodButton:hover, .navButton:hover{
@@ -139,7 +141,9 @@ margin-bottom:20px;
   height: 125px;
   width: 125px; 
   border-radius:125px;
-  border: black
+  border: black;
+  transition-property: border, border-radius;
+  transition-duration: 1s;
 }
 
 /*footer styling*/
