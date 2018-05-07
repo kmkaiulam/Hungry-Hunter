@@ -1,6 +1,6 @@
 //API ENDPOINTS
 const GEOCODE_SEARCH_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
-const FOURSQUARE_URL = 'https://api.foursquare.com/v2/venues/' // modify to construct endpoint address for explore, tips and photos
+const FOURSQUARE_URL = 'https://api.foursquare.com/v2/venues/'
 
 
 //Global Variables Here
@@ -22,23 +22,6 @@ function initAutocomplete() {
 }
 
 
-function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
-    const addressSearch = {
-        key: 'AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc',
-        address: `${searchLocationGeo}` 
-    };
-    $.getJSON(GEOCODE_SEARCH_URL, addressSearch , callGeoData);
-    
-}
-
-function callGeoData(data){
-   locationGeo = data.results[0].geometry.location
-     locationGeoLat = data.results[0].geometry.location.lat;
-     locationGeoLng = data.results[0].geometry.location.lng;
-     $('#js-search-results').empty();
-
-}
-
 //Next and Back Buttons
 function handleNextButtonClick(){
     $('#nextButton').click(event => {
@@ -54,7 +37,7 @@ function handleNextButtonClick(){
                     ll: `${locationGeoLat}, ${locationGeoLng}`,
                     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
                     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                    limit: 5, //temporary limit to reduce quota depletion
+                    limit: 5,
                     offset: offsetToken,
                     radius: 3218.69,
                     query: foodQuery,
@@ -67,7 +50,7 @@ function handleNextButtonClick(){
                     ll: `${locationGeoLat}, ${locationGeoLng}`,
                     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
                     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                    limit: 5, //temporary limit to reduce quota depletion
+                    limit: 5,
                     offset: offsetToken,
                     radius: 3218.69,
                     query: foodQuery,
@@ -80,7 +63,7 @@ function handleNextButtonClick(){
                     ll: `${locationGeoLat}, ${locationGeoLng}`,
                     client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
                     client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-                    limit: 5, //temporary limit to reduce quota depletion
+                    limit: 5, 
                     offset: offsetToken,
                     radius: 3218.69,
                     query: foodQuery,
@@ -147,12 +130,7 @@ function handleBackButtonClick(){
             }
     });
 }
-//resets totalResults and hides buttons for new search
-function hideNavButtons(){
-    totalResults = 0;
-    $('#nextButton').prop('hidden', true);
-    $('#backButton').prop('hidden', true);
-}
+
 
 //EVENT LISTEN - Coffee, Sushi and Sandwiches
 function handleCoffeeClick(){
@@ -337,6 +315,30 @@ function showSearchButtons(){
 function displayUserInput(userInput){
     $('#js-user-address').html(userInput);
     $('#js-user-input').prop('hidden', false);
+}
+
+function retrieveGoogleGeocodingData(searchLocationGeo, callGeoData){
+    const addressSearch = {
+        key: 'AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc',
+        address: `${searchLocationGeo}` 
+    };
+    $.getJSON(GEOCODE_SEARCH_URL, addressSearch , callGeoData);
+    
+}
+
+function callGeoData(data){
+   locationGeo = data.results[0].geometry.location
+     locationGeoLat = data.results[0].geometry.location.lat;
+     locationGeoLng = data.results[0].geometry.location.lng;
+     $('#js-search-results').empty();
+
+}
+
+//resets totalResults and hides buttons for new search
+function hideNavButtons(){
+    totalResults = 0;
+    $('#nextButton').prop('hidden', true);
+    $('#backButton').prop('hidden', true);
 }
 
 function listenAddressSubmit(){
