@@ -1,5 +1,5 @@
 # Hungry Hunter
-LINK TO LIVE APP
+LINK TO LIVE APP</br>
 https://kmlamthinkful.github.io/Capstone-One/
 
 SUMMARY
@@ -28,9 +28,8 @@ HTML
 CSS
 JAVASCRIPT
 
-APIS
-</br>
-Foursquare</br>  
-Google Geocoding</br>  
-Google Maps JavaScript</br> 
+APIS</br>
+Foursquare
+Google Geocoding  
+Google Maps JavaScript
 Google Places
