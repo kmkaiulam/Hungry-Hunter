@@ -1,6 +1,6 @@
 # Hungry Hunter
 LINK TO LIVE APP</br>
-https://kmlamthinkful.github.io/Capstone-One/
+https://kmlamthinkful.github.io/Capstone-One/ </br>
 MOTIVATION:
 This is for you if you're like me and can't settle for:</br> 
  -  just anything with caffeine in it, </br>
