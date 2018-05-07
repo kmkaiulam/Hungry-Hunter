@@ -244,7 +244,7 @@ function retrieveFourSquareTipsData(venueUniqueId){
                 renderFourSquareTipsData(data, venueUniqueId)
             }
          }
-     $.ajax(tipsSettings)
+     $.ajax(tipsSettings);
 }
 
 
