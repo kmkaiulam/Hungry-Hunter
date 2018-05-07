@@ -29,7 +29,7 @@ CSS
 JAVASCRIPT
 
 APIS</br>
-Foursquare
+Foursquare</br>
 Google Geocoding  
 Google Maps JavaScript
 Google Places
