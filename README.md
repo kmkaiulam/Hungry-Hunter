@@ -11,4 +11,26 @@ If you're like me and can't settle for:
 Grab details on cafes, sandwich shops and sushi restaurants to help you start your hunt for good food nearby and now.
 
 SCREENSHOTS
+-START-
+![Screenshot](https://github.com/kmlamthinkful/Capstone-One/blob/master/screenshots/Capstone%20One_%20Hungry%20Hunter%20-%20Start%20Page.png)
 
+-SEARCHING-
+![Screenshot](https://github.com/kmlamthinkful/Capstone-One/blob/master/screenshots/Capstone%20One_%20Hungry%20Hunter%20%20-%20Search.png)
+
+-RESULTS-
+![Screenshot](https://github.com/kmlamthinkful/Capstone-One/blob/master/screenshots/Capstone%20One_%20Hungry%20Hunter%20-%20Results.png)
+
+
+TECHNOLOGY
+HTML
+CSS
+JAVASCRIPT
+
+APIS
+Foursquare
+    Explore
+    Tips
+    Photos
+Google Geocoding
+Google Maps JavaScript
+Google Places
