@@ -4,7 +4,7 @@ https://kmlamthinkful.github.io/Capstone-One/
 
 SUMMARY
 </br>
-###If you're like me and can't settle for:</br> 
+If you're like me and can't settle for:</br> 
  -  just anything with caffeine in it, </br>
  -  a sandwich composed of bread whose name only has 1 syllable,</br>
  -  or a sushi roll made with old rice,</br>
