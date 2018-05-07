@@ -28,6 +28,7 @@ TECHNOLOGY:
 HTML
 CSS
 JAVASCRIPT
+jQuery
 
 APIS:</br>
 Foursquare</br>
