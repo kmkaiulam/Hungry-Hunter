@@ -105,8 +105,9 @@ body{
 .js-venue-title{
   margin:20px 20px 0 20px;
   width: 100%;
+  line-height: 3;
   background:rgba(255, 228, 196, .7);
-  height: 75px;
+  height: 60px;
 }
 
 .js-photo-container{
@@ -134,7 +135,8 @@ height:66px;
 }
 
 .js-distance{
-margin-bottom:20px;
+margin:10px 0;
+padding: 0 10%;
 }
 
 .js-tip-container{
@@ -147,6 +149,7 @@ margin-bottom:20px;
 .js-tips{
   height:auto;
   min-height:140px;
+  padding: 0 5%;
 }
 .js-venue-entry{
   display:flex;
