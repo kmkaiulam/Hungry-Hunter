@@ -16,6 +16,16 @@ html{
   margin-bottom:30px;
 }
 
+/* placeholder text styling */
+::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, :-moz-placeholder  { /* Chrome/Opera/Safari */
+  color: darkslategray;
+  font-size: 18px;
+}
+
+#autocomplete{
+  font-size:18px;
+}
+
 /* Search Bar Styling */
 .js-query{
   width: 300px;
@@ -26,8 +36,8 @@ html{
   cursor:pointer;
 }
 #js-search-button{
-  height:30px;
-  width:60px;
+  height:36px;
+  width:66px;
 }
 
 
