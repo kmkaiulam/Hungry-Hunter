@@ -133,25 +133,28 @@ function handleBackButtonClick(){
 
 
 //EVENT LISTEN - Coffee, Sushi and Sandwiches
+function defaultCoffeeResponseAddressSubmit(){
+    $('#nextButton').prop('hidden',false);
+    offsetToken = 0;
+    foodQuery = 'coffee';
+    const fourSquareCoffeeQuery = {
+        ll: `${locationGeoLat}, ${locationGeoLng}`,
+        client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
+        client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
+        limit: 5,
+        offset: offsetToken,
+        radius: 3218.69,
+        query: foodQuery,
+        v: '20180504',
+    }
+$.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
+}
+
 function handleCoffeeClick(){
     $('#buttonCoffee').click(event =>{
         event.preventDefault();
-        $('#nextButton').prop('hidden',false);
-        offsetToken = 0;
-        foodQuery = 'coffee';
-        $('#js-search-results').empty();
-        const fourSquareCoffeeQuery = {
-            ll: `${locationGeoLat}, ${locationGeoLng}`,
-            client_id: 'AGSZCIMTJHOEQYLH3JA0MBUT0NDJOD2ACHB5CIFNAQMOIGOI',
-            client_secret: 'EJG3ULU1EMP20VWXGKUDJCFZCUBUAGMF35ZESRNASEC3RZGA',
-            limit: 5,
-            offset: offsetToken,
-            radius: 3218.69,
-            query: foodQuery,
-            v: '20180504',
-        }
-        $.getJSON(`${FOURSQUARE_URL}explore`,fourSquareCoffeeQuery, renderFourSquareSearchData)
-    });
+        defaultCoffeeResponseAddressSubmit();
+});
 }
 
 function handleSandwichClick(){
@@ -330,8 +333,7 @@ function callGeoData(data){
    locationGeo = data.results[0].geometry.location
      locationGeoLat = data.results[0].geometry.location.lat;
      locationGeoLng = data.results[0].geometry.location.lng;
-     $('#js-search-results').empty();
-
+     defaultCoffeeResponseAddressSubmit();
 }
 
 //resets totalResults and hides buttons for new search
@@ -359,6 +361,7 @@ function listenAddressSubmit(){
     searchLocationGeo = locationAddress;
     showSearchButtons();
     retrieveGoogleGeocodingData(searchLocationGeo, callGeoData);
+    defaultCoffeeResponseAddressSubmit();
 });
 }
     
