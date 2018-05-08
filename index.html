@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <meta charset ="utf-8">
+    <meta name ="viewport" content ="width=device-width">
     <title>Capstone One: Hungry Hunter</title>
     <script
-          src="https://code.jquery.com/jquery-3.2.1.min.js"
-          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-          crossorigin="anonymous"></script> 
-    <link href="index.css" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc&libraries=places&callback=initAutocomplete"
+          src ="https://code.jquery.com/jquery-3.2.1.min.js"
+          integrity ="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin ="anonymous"></script> 
+    <link href ="index.css" rel ="stylesheet" type ="text/css" />
+    <link href ="https://fonts.googleapis.com/css?family=Kaushan+Script|Open+Sans" rel= "stylesheet">
+    <link rel ="stylesheet" href ="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity= "sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <script type ="text/javascript" src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMU9Dj6A_KxoL3zmCRfS5U8bi8WV-01Fc&libraries=places&callback=initAutocomplete"
        async defer></script>
     <script src ="index.js"></script>
 </head>
-<body>
-        <header role = 'navigation'>
-                <div class ='transparentTextBox'> 
-                    <h1 class = 'title' id = 'hungryHunter'> Hungry Hunter </h1>
-                    <h2 class ='title' id = 'searchNearby'> Search nearby for Coffee, Sandwiches and Sushi</h2>
-                  
+    <body>
+            <header role ='navigation'>
+                    <div class ='transparentTextBox'> 
+                        <h1 class ='title' id ='hungryHunter'> Hungry Hunter </h1>
+                        <h2 class ='title' id ='searchNearby'> Search nearby for Coffee, Sandwiches and Sushi</h2>
+                    
+                    </div>
+                    <form action ='#' class ='js-search-form'>
+                    <label for ='query'></label>
+                    <input aria-label ='user address input' aria-labelledby ='autocomplete' type ='text' id ='autocomplete' class ='js-query' required placeholder ="Enter address">
+                    <button id ='js-search-button' type ='submit'> Search</button>
+                    </form>
+                <div class ='flexButtonWrapper'>
+                    <button id ='buttonCoffee'   aria-label ='Coffee button'   aria-labelledby ='buttonCoffee'   class ='foodButton' type = "button" hidden > <img class='foodImg' src ='https://png.icons8.com/cotton/1600/hot-coffee.png' alt ='Coffee Icon'></button>
+                    <button id ='buttonSandwich' aria-label ='Sandwich button' aria-labelledby ='buttonSandwich' class ='foodButton' type = "button" hidden > <img class='foodImg' src ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwEhrhKGB07-VVIC8yvB2vhO-LTfVU2sS1r49unp4_dATdlAFU' alt ='Sandwich icon'></button>
+                    <button id ='buttonSushi'    aria-label ='Sushi button'    aria-labelledby ='buttonSushi'    class ='foodButton' type = "button" hidden > <img class='foodImg' src ='https://png.icons8.com/color/1600/sashimi.png' alt ='Sashimi Icon'></button>    
                 </div>
-                <form action ='#' class ='js-search-form'>
-                <label for= 'query'></label>
-                <input aria-label = 'user address input' aria-labelledby = 'autocomplete' type ='text' id = 'autocomplete' class = 'js-query' required placeholder="Enter address">
-                <button id ='js-search-button' type ='submit'> Search</button>
-                </form>
-        <div class ='flexButtonWrapper'>
-            <button id = 'buttonCoffee'   aria-label = 'Coffee button' aria-labelledby ='buttonCoffee' class = 'foodButton' type = "button" hidden > <img class='foodImg' src = 'https://png.icons8.com/cotton/1600/hot-coffee.png' alt ='Coffee Icon'></button>
-            <button id = 'buttonSandwich' aria-label = 'Sandwich button' aria-labelledby ='buttonSandwich' class = 'foodButton' type = "button" hidden > <img class='foodImg' src ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwEhrhKGB07-VVIC8yvB2vhO-LTfVU2sS1r49unp4_dATdlAFU' alt ='Sandwich icon'></button>
-            <button id = 'buttonSushi'    aria-label = 'Sushi button' aria-labelledby ='buttonSushi' class = 'foodButton' type = "button" hidden > <img class='foodImg' src = 'https://png.icons8.com/color/1600/sashimi.png' alt ='Sashimi Icon'></button>    
-        </div>
-        </header>
-            
-    <main role = "main"> 
-            <div class ='transparentTextBox'>  
-                <h2 id='js-user-input' hidden> Hunting Near : <span id = 'js-user-address'>  </span> </h2>
-            </div>
-        <div class ='flex-container' id = 'js-search-results'></div>
-        <button aria-label = 'back button' aria-labelledby = 'backButton' id = 'backButton' class = 'navButton' hidden> <i class="fas fa-arrow-left"> </i> </button> <button aria-label = 'next button' aria-labelledby = 'nextButton' id = 'nextButton' class ='navButton' hidden> <i class="fas fa-arrow-right"></i></button>
-
-    </main>
-</body>
-<footer>
-    <div class = 'footerSpace'></div> 
-    <div class =' footerText'> Powered by:<img class ='footerAttribution' src = 'https://image.flaticon.com/icons/svg/185/185984.svg' alt = 'FourSquare Icon'> 
-    <img class ='footerAttribution' src = 'https://png.icons8.com/color/1600/google-maps.png' alt = 'Google Maps Icon'> </div>
-</footer>
+            </header>
+                
+            <main role ="main"> 
+                <div class ='transparentTextBox'>  
+                    <h2 id ='js-user-input' hidden> Hunting Near :<span id ='js-user-address'></span></h2>
+                </div>
+                <div class ='flex-container' id ='js-search-results'></div>
+                <button aria-label ='back button' aria-labelledby ='backButton' id ='backButton' class ='navButton' hidden><i class ="fas fa-arrow-left"></i></button><button aria-label ='next button' aria-labelledby ='nextButton' id ='nextButton' class ='navButton' hidden><i class="fas fa-arrow-right"></i></button>
+            </main>
+    </body>
+    
+    <footer>
+        <div class ='footerSpace'></div> 
+        <div class ='footerText'> Powered by:<img class ='footerAttribution' src ='https://image.flaticon.com/icons/svg/185/185984.svg' alt ='FourSquare Icon'> 
+        <img class ='footerAttribution' src ='https://png.icons8.com/color/1600/google-maps.png' alt ='Google Maps Icon'> </div>
+    </footer>
 </html>
