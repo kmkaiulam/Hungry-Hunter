@@ -51,7 +51,7 @@ html{
 }
 
 .foodButton{
-  margin-top: 10px;
+  margin: 1% 5%;
   cursor: crosshair;
   background: white;
   height: 150px;
