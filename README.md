@@ -1,7 +1,7 @@
 # Hungry Hunter
 
 ## Summary
-Hungry Hunter is there for you when you need good food nearby and now.
+Hungry Hunter is local search app for when you need good food nearby and now.
 
 ## Motivation
 This is for you if you're like me and can't settle for:
