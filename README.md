@@ -1,13 +1,10 @@
 # Hungry Hunter
 
 ## Summary
-Hungry Hunter is local search app for when you need good food nearby and now.
+Hungry Hunter is a local search app for when you need good food nearby and now.
 
 ## Motivation
-This is for you if you're like me and can't settle for:
- -  just anything with caffeine in it, 
- -  a sandwich composed of bread whose name only has 1 syllable,
- -  or a sushi roll made with old rice
+Getting hangry is a real thing, and you don't want to spend a lot of time searching for what should be a quick-bite.
 
 ## Live Demo
 https://kmkaiulam.github.io/Hungry-Hunter/ 
